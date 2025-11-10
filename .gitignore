@@ -1,0 +1,119 @@
+# ------------------------------
+# Python & Environment
+# ------------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.eggs/
+.env
+.venv
+venv/
+env/
+ENV/
+env.bak/
+Pipfile.lock
+poetry.lock
+
+# ------------------------------
+# IDEs & Editors
+# ------------------------------
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ------------------------------
+# OS & Misc
+# ------------------------------
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# ------------------------------
+# Jupyter & Experiments
+# ------------------------------
+.ipynb_checkpoints/
+notebooks/.ipynb_checkpoints/
+*.ipynb_convert*
+/experiments/
+logs/
+runs/
+outputs/
+wandb/
+mlruns/
+
+# ------------------------------
+# Data & Models
+# ------------------------------
+data/
+datasets/
+raw_data/
+processed_data/
+models/
+checkpoints/
+*.db
+*.sqlite
+*.duckdb
+*.csv
+*.tsv
+*.xlsx
+*.parquet
+*.pkl
+*.npz
+*.npy
+
+# ------------------------------
+# Frontend / Streamlit / FastAPI
+# ------------------------------
+node_modules/
+dist/
+build/
+frontend/.next/
+frontend/out/
+streamlit-webrtc/
+
+# ------------------------------
+# Cache & Temp
+# ------------------------------
+__cache__/
+.cache/
+tmp/
+temp/
+*.log
+*.tmp
+*.bak
+
+# ------------------------------
+# Reports & Deliverables
+# ------------------------------
+reports/
+slides/
+*.pdf
+*.pptx
+*.docx
+
+# ------------------------------
+# Secrets & Keys
+# ------------------------------
+*.pem
+*.key
+*.crt
+*.json
+apikeys/
+secrets/
+openai_api_key.txt
+.env.local
+.env.prod
+.env.dev
+.env.example
+
+# ------------------------------
+# Linear / Project Integration
+# ------------------------------
+.linear/
+project_management/
