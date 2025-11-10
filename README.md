@@ -128,8 +128,6 @@ Outputs:
 ## **8. License**
 
 MIT License — free to use for educational purposes.
-© 2025 Finance QA Chatbot Team, Erasmus University / HKU SAAS Data Science Lab.
-
 
 ## **9. Acknowledgments**
 
