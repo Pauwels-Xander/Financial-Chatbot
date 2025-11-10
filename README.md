@@ -22,10 +22,15 @@ It integrates data preprocessing, semantic entity linking, text-to-SQL generatio
 ## **2. Features**
 
 ✅ Natural language question parsing
+
 ✅ Automatic SQL query generation and execution
+
 ✅ Semantic matching for financial account names
+
 ✅ Interpretable numeric and trend responses
+
 ✅ FastAPI backend + simple chat UI
+
 ✅ Evaluation metrics for accuracy, latency, and response quality
 
 
