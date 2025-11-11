@@ -62,6 +62,11 @@ Finance-QA-Chatbot/
 ├── reports/
 │   ├── final_metrics.md
 │   └── project_report.docx
+├── /docs/
+│   ├── tech_stack.md
+│   ├── architecture_diagram.png
+│   ├── design_decisions.md
+│   └── evaluation_plan.md
 ├── .gitignore
 ├── requirements.txt
 ├── README.md
@@ -73,7 +78,7 @@ Finance-QA-Chatbot/
 
 ```bash
 # Clone repo
-git clone https://github.com/<your-org>/finance-qa-chatbot.git
+git clone https://github.com/Pauwels-Xander/finance-qa-chatbot.git
 cd finance-qa-chatbot
 
 # Create virtual environment
