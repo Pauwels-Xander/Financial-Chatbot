@@ -10,7 +10,7 @@ UTF8_INPUT = Path("data/raw/Alectra_utf8.csv")
 df = pd.read_csv(RAW_INPUT, encoding="Windows-1252")
 df.to_csv(UTF8_INPUT, index=False, encoding="utf-8")
 
-con = duckdb.connect("trial_balance.duckdb")
+con = duckdb.connect("data/db/trial_balance.duckdb")
 
 # Build staging table from the UTF-8 CSV
 con.execute(
