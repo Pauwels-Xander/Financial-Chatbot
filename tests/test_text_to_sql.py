@@ -11,6 +11,7 @@ from backend.text_to_sql import (
     TextToSQLGenerator,
     run_toy_example,
 )
+from backend.utils.experiment_logger import ExperimentLogger
 
 
 @pytest.fixture(scope="module")
@@ -43,10 +44,13 @@ def test_text_to_sql_generation_and_validation(toy_schema, tmp_path):
     assert {"product", "total_amount"} <= set(map(str.lower, df.columns))
 
 
-def test_run_toy_example_creates_results():
-    artifacts = run_toy_example()
-    assert artifacts["raw_sql"]
+def test_run_toy_example_creates_results(tmp_path):
+    logger = ExperimentLogger(tmp_path / "runs.csv")
+    artifacts = run_toy_example(logger=logger)
+    assert artifacts["validated_sql"]
     assert os.path.exists(artifacts["results_path"])
     df = pd.read_csv(artifacts["results_path"])
     assert not df.empty
+    with (tmp_path / "runs.csv").open() as handle:
+        assert len(handle.readlines()) >= 2
 

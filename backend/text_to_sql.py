@@ -18,11 +18,14 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Sequence
+from time import perf_counter
 
 import duckdb
 import sqlglot
 from sqlglot import exp
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+
+from backend.utils.experiment_logger import ExperimentLogger
 
 HF_MODEL_NAME = "mrm8488/t5-base-finetuned-wikiSQL"
 
@@ -187,7 +190,7 @@ class TextToSQLGenerator:
         raise PicardValidationError("Unable to generate valid SQL for the given question.")
 
 
-def run_toy_example() -> Dict[str, object]:
+def run_toy_example(logger: Optional[ExperimentLogger] = None) -> Dict[str, object]:
     """
     Demonstrate end-to-end generation + validation on an in-memory DuckDB table.
     Returns debug artifacts (SQL, validation flag, query results).
@@ -217,19 +220,28 @@ def run_toy_example() -> Dict[str, object]:
     validator = PicardValidator(schema)
 
     question = "List the total amount for each product from the sales table."
+    start = perf_counter()
     validated_sql = generator.generate_sql_with_validation(question, schema, validator)
-
     df = connection.execute(validated_sql).df()
+    runtime = perf_counter() - start
 
     # Clean up database
     connection.close()
 
-    return {
+    record = {
         "question": question,
-        "raw_sql": validated_sql,
         "validated_sql": validated_sql,
         "results_path": _write_results(df),
     }
+
+    (logger or ExperimentLogger()).log(
+        query=question,
+        generated_sql=validated_sql,
+        runtime_seconds=runtime,
+        output=df.to_dict(orient="records"),
+    )
+
+    return record
 
 
 def _write_results(df) -> str:
