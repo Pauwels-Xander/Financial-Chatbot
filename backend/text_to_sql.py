@@ -15,6 +15,7 @@ runtime (which has a strict Python <3.11 requirement) and instead leverages
 
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Sequence
@@ -34,10 +35,115 @@ class PicardValidationError(ValueError):
     """Raised when a generated SQL statement violates schema or syntax constraints."""
 
 
+class SchemaIntrospectionError(RuntimeError):
+    """Raised when DuckDB schema export fails or finds no user tables."""
+
+
 @dataclass(frozen=True)
 class TableSchema:
     name: str
     columns: Sequence[str]
+
+
+def schema_to_prompt_string(tables: Sequence[TableSchema]) -> str:
+    """
+    Convert a collection of table schemas to a compact prompt string.
+
+    Example: accounts(account_id, name) | balances(id, amount)
+    """
+    ordered_tables = sorted(tables, key=lambda table: table.name.lower())
+    return " | ".join(f"{table.name}({', '.join(table.columns)})" for table in ordered_tables)
+
+
+def schema_to_json(tables: Sequence[TableSchema]) -> str:
+    """Serialize schemas into a JSON array of {table, columns} objects."""
+    payload = [
+        {"table": table.name, "columns": list(table.columns)}
+        for table in sorted(tables, key=lambda table: table.name.lower())
+    ]
+    return json.dumps(payload)
+
+
+def introspect_duckdb_schema(
+    database_path: str,
+    *,
+    schema: str = "main",
+    include_views: bool = False,
+    table_filter: Optional[Sequence[str]] = None,
+) -> List[TableSchema]:
+    """
+    Read the live DuckDB catalog and return a TableSchema list.
+
+    The function queries information_schema on every call, so the output always mirrors
+    the current database state (new tables/columns are reflected immediately).
+    """
+    try:
+        connection = duckdb.connect(database_path, read_only=True)
+    except duckdb.Error as exc:
+        raise SchemaIntrospectionError(f"Unable to open DuckDB database at '{database_path}'") from exc
+
+    table_filter_clause = ""
+    params: List[object] = [schema]
+    if table_filter:
+        placeholders = ", ".join("?" for _ in table_filter)
+        table_filter_clause = f" AND c.table_name IN ({placeholders})"
+        params.extend(table_filter)
+
+    table_type_clause = "" if include_views else " AND t.table_type = 'BASE TABLE'"
+
+    query = f"""
+        SELECT
+            c.table_name,
+            LIST(c.column_name ORDER BY c.ordinal_position) AS columns
+        FROM information_schema.columns AS c
+        JOIN information_schema.tables AS t
+          ON c.table_catalog = t.table_catalog
+         AND c.table_schema = t.table_schema
+         AND c.table_name   = t.table_name
+        WHERE c.table_schema = ?
+        {table_type_clause}
+        {table_filter_clause}
+        GROUP BY c.table_name
+        ORDER BY c.table_name;
+    """
+
+    try:
+        rows = connection.execute(query, params).fetchall()
+    except duckdb.Error as exc:
+        raise SchemaIntrospectionError("Failed to export DuckDB schema") from exc
+    finally:
+        connection.close()
+
+    if not rows:
+        raise SchemaIntrospectionError(f"No tables found for schema '{schema}' in '{database_path}'")
+
+    return [TableSchema(name=row[0], columns=list(row[1])) for row in rows]
+
+
+def export_duckdb_schema_for_model(
+    database_path: str,
+    *,
+    schema: str = "main",
+    include_views: bool = False,
+    table_filter: Optional[Sequence[str]] = None,
+) -> Dict[str, object]:
+    """
+    Convenience wrapper that yields TableSchema objects plus prompt/JSON renderings.
+
+    Call this immediately before inference so every request uses the current DuckDB
+    catalog (no manual syncing needed when tables evolve).
+    """
+    tables = introspect_duckdb_schema(
+        database_path,
+        schema=schema,
+        include_views=include_views,
+        table_filter=table_filter,
+    )
+    return {
+        "tables": tables,
+        "prompt_schema": schema_to_prompt_string(tables),
+        "json_schema": schema_to_json(tables),
+    }
 
 
 class PicardValidator:
@@ -137,10 +243,7 @@ class TextToSQLGenerator:
         ]
 
     def _build_prompt(self, question: str, tables: Sequence[TableSchema]) -> str:
-        schema_lines: List[str] = []
-        for table in tables:
-            schema_lines.append(f"{table.name}({', '.join(table.columns)})")
-        schema_block = " | ".join(schema_lines)
+        schema_block = schema_to_prompt_string(tables)
         examples = " ".join(f"Question: {q} | SQL: {a}" for q, a in self._few_shot_examples)
         return f"{examples} Question: {question} | Schema: {schema_block} | SQL:"
 
@@ -181,6 +284,44 @@ class TextToSQLGenerator:
             fallback = self._fallback_sql(question, schema)
             validator.validate(fallback)
             return fallback
+
+    def generate_sql_from_database(
+        self,
+        question: str,
+        *,
+        database_path: str,
+        schema: str = "main",
+        include_views: bool = False,
+        table_filter: Optional[Sequence[str]] = None,
+        validator: Optional[PicardValidator] = None,
+        **generation_kwargs,
+    ) -> str:
+        """
+        Generate and validate SQL against the live DuckDB catalog on each call.
+
+        Args:
+            question: Natural language query.
+            database_path: Path to the DuckDB database file.
+            schema: DuckDB schema/catalog name to inspect (defaults to 'main').
+            include_views: Include view definitions in the exported schema.
+            table_filter: Optional list of table names to keep.
+            validator: Optional PicardValidator; when omitted a fresh validator is
+                       constructed from the current schema snapshot.
+            generation_kwargs: Passed through to generate_sql.
+        """
+        tables = introspect_duckdb_schema(
+            database_path,
+            schema=schema,
+            include_views=include_views,
+            table_filter=table_filter,
+        )
+        active_validator = validator or PicardValidator(tables)
+        return self.generate_sql_with_validation(
+            question,
+            tables,
+            active_validator,
+            **generation_kwargs,
+        )
 
     def _fallback_sql(self, question: str, schema: Sequence[TableSchema]) -> str:
         lowered = question.lower()
@@ -255,6 +396,11 @@ def _write_results(df) -> str:
 __all__ = [
     "PicardValidationError",
     "PicardValidator",
+    "SchemaIntrospectionError",
+    "introspect_duckdb_schema",
+    "schema_to_json",
+    "schema_to_prompt_string",
+    "export_duckdb_schema_for_model",
     "TableSchema",
     "TextToSQLGenerator",
     "run_toy_example",

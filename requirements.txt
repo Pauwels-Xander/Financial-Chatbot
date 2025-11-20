@@ -7,4 +7,7 @@ pandas==2.3.2
 sqlglot==27.29.0
 dateparser==1.2.2
 pytest==8.3.4
+sentence-transformers==3.3.1
+chromadb==0.4.24
+numpy<2.0
 

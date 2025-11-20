@@ -9,7 +9,7 @@ class VectorDB:
     Vector database for storing and querying financial account embeddings
     """
 
-    def __init__(self, directory: str = "data/vector_db/chroma_db"):
+    def __init__(self, directory: str | Path = "data/vector_db/chroma_db"):
         """
         Args: directory: location of the vector database
         """
@@ -18,10 +18,16 @@ class VectorDB:
         self.directory = Path(directory)
         self.directory.mkdir(parents=True, exist_ok=True)
 
+        persist_directory = str(self.directory)
+
         #create the client and collection
         self.client = chromadb.PersistentClient(
-            path=self.directory,
-            settings=Settings(anonymized_telemetry=False))
+            path=persist_directory,
+            settings=Settings(
+                anonymized_telemetry=False,
+                persist_directory=persist_directory,
+            ),
+        )
         
         #create the collection if it doesn't exist
         self.collection = self.client.get_or_create_collection(
