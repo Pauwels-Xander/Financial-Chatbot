@@ -16,6 +16,7 @@ runtime (which has a strict Python <3.11 requirement) and instead leverages
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Sequence
@@ -172,19 +173,21 @@ class PicardValidator:
         except sqlglot.errors.ParseError as exc:
             raise PicardValidationError(f"SQL parsing failed: {exc}") from exc
 
-        referenced_tables = self._collect_tables(parsed)
-        if not referenced_tables:
+        base_tables, alias_map = self._collect_table_context(parsed)
+        if not base_tables:
             raise PicardValidationError("Query must reference at least one registered table")
-        for table in referenced_tables:
+        for table in base_tables:
             if table not in self._tables:
                 raise PicardValidationError(f"Unknown table referenced: '{table}'")
 
         referenced_columns = self._collect_columns(parsed)
         for table, columns in referenced_columns.items():
             resolved_table = table
-            if not resolved_table:
-                if len(self._tables) == 1:
-                    resolved_table = next(iter(self._tables))
+            if resolved_table:
+                resolved_table = alias_map.get(resolved_table, resolved_table)
+            else:
+                if len(base_tables) == 1:
+                    resolved_table = next(iter(base_tables))
                 else:
                     raise PicardValidationError("Ambiguous column reference without table qualifier")
 
@@ -201,16 +204,23 @@ class PicardValidator:
         return parsed.sql(dialect="duckdb")
 
     @staticmethod
-    def _collect_tables(parsed: exp.Expression) -> set[str]:
-        tables = set()
+    def _collect_table_context(parsed: exp.Expression) -> tuple[set[str], dict[str, str]]:
+        """
+        Return base tables and alias mappings to resolve unqualified/aliased columns.
+        base_tables: set of real table names referenced.
+        alias_map: alias -> base table name (lowercase).
+        """
+        base_tables: set[str] = set()
+        alias_map: dict[str, str] = {}
         for table in parsed.find_all(exp.Table):
-            if table.alias:
-                alias = table.alias_or_name.lower()
-                tables.add(alias)
             name = table.this.name if isinstance(table.this, exp.Identifier) else table.name
             if name:
-                tables.add(name.lower())
-        return tables
+                base_name = name.lower()
+                base_tables.add(base_name)
+                if table.alias:
+                    alias = table.alias_or_name.lower()
+                    alias_map[alias] = base_name
+        return base_tables, alias_map
 
     @staticmethod
     def _collect_columns(parsed: exp.Expression) -> Dict[str, set[str]]:
@@ -325,10 +335,129 @@ class TextToSQLGenerator:
 
     def _fallback_sql(self, question: str, schema: Sequence[TableSchema]) -> str:
         lowered = question.lower()
-        table_names = {table.name.lower(): table for table in schema}
-        if "sales" in table_names and "total" in lowered and "product" in lowered:
-            return "SELECT product, SUM(amount) AS total_amount FROM sales GROUP BY product;"
+        year_filter = self._extract_year(lowered)
+
+        finance_patterns: list[tuple[list[str], list[str]]] = [
+            (["revenue", "income"], ["revenue", "income"]),
+            (["net income", "profit"], ["net_income", "income_total", "profit"]),
+            (["cash", "cash equivalents"], ["cash"]),
+            (["receivable"], ["receivable"]),
+            (["inventory"], ["inventory"]),
+            (["asset"], ["asset"]),
+            (["liabil"], ["liabil"]),
+            (["equity"], ["equity"]),
+            (["expense", "cost"], ["expense", "cost"]),
+        ]
+
+        for triggers, metric_keywords in finance_patterns:
+            if any(trigger in lowered for trigger in triggers):
+                table, column = self._find_metric_column(schema, metric_keywords)
+                if table and column:
+                    return self._build_finance_query(
+                        table=table,
+                        metric_column=column,
+                        question_lower=lowered,
+                        year_filter=year_filter,
+                    )
+
+        if "company" in lowered:
+            table = self._find_table_with_column(schema, ["company"])
+            if table:
+                company_col = self._find_column_in_table(table, ["company"])
+                year_col = self._find_column_in_table(table, ["year"])
+                where_clause = ""
+                if year_filter and year_col:
+                    where_clause = f" WHERE {self._quote_identifier(year_col)} = {year_filter}"
+                return (
+                    f"SELECT DISTINCT {self._quote_identifier(company_col)} "
+                    f"FROM {self._quote_identifier(table.name)}{where_clause};"
+                )
+
         raise PicardValidationError("Unable to generate valid SQL for the given question.")
+
+    @staticmethod
+    def _extract_year(question_lower: str) -> Optional[str]:
+        match = re.search(r"\b(20\d{2})\b", question_lower)
+        return match.group(1) if match else None
+
+    @staticmethod
+    def _quote_identifier(name: str) -> str:
+        if re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", name):
+            return name
+        return f'"{name}"'
+
+    @staticmethod
+    def _normalize_name(name: str) -> str:
+        return re.sub(r"[^a-z0-9]+", "_", name.lower()).strip("_")
+
+    def _find_metric_column(
+        self, tables: Sequence[TableSchema], keywords: Sequence[str]
+    ) -> tuple[Optional[TableSchema], Optional[str]]:
+        for table in tables:
+            for col in table.columns:
+                normalized = self._normalize_name(col)
+                if any(keyword in normalized for keyword in keywords):
+                    return table, col
+        return None, None
+
+    def _find_table_with_column(
+        self, tables: Sequence[TableSchema], keywords: Sequence[str]
+    ) -> Optional[TableSchema]:
+        for table in tables:
+            if self._find_column_in_table(table, keywords):
+                return table
+        return None
+
+    def _find_column_in_table(self, table: TableSchema, keywords: Sequence[str]) -> Optional[str]:
+        for col in table.columns:
+            normalized = self._normalize_name(col)
+            if all(keyword in normalized for keyword in keywords):
+                return col
+        return None
+
+    def _build_finance_query(
+        self,
+        *,
+        table: TableSchema,
+        metric_column: str,
+        question_lower: str,
+        year_filter: Optional[str],
+    ) -> str:
+        year_col = self._find_column_in_table(table, ["year"])
+        company_col = self._find_column_in_table(table, ["company"])
+        needs_agg = any(word in question_lower for word in ("total", "sum", "aggregate"))
+
+        metric_expr = (
+            f"SUM({self._quote_identifier(metric_column)})"
+            if needs_agg
+            else self._quote_identifier(metric_column)
+        )
+        select_parts: list[str] = []
+        group_by_parts: list[str] = []
+
+        if year_col:
+            select_parts.append(self._quote_identifier(year_col))
+            group_by_parts.append(self._quote_identifier(year_col))
+        if company_col:
+            select_parts.append(self._quote_identifier(company_col))
+            group_by_parts.append(self._quote_identifier(company_col))
+
+        metric_alias = self._normalize_name(metric_column)
+        select_parts.append(f"{metric_expr} AS {metric_alias}")
+
+        sql = f"SELECT {', '.join(select_parts)} FROM {self._quote_identifier(table.name)}"
+        where_clauses: list[str] = []
+        if year_filter and year_col:
+            where_clauses.append(f"{self._quote_identifier(year_col)} = {year_filter}")
+        if where_clauses:
+            sql += " WHERE " + " AND ".join(where_clauses)
+
+        if needs_agg and group_by_parts:
+            sql += " GROUP BY " + ", ".join(group_by_parts)
+        if group_by_parts:
+            sql += " ORDER BY " + ", ".join(group_by_parts)
+
+        return sql + ";"
 
 
 def run_toy_example(logger: Optional[ExperimentLogger] = None) -> Dict[str, object]:

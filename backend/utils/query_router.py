@@ -82,8 +82,22 @@ class QueryRouter:
         ]
         for pattern in time_patterns:
             matches = re.findall(pattern, query, re.IGNORECASE)
-            if matches:
-                time_expressions.extend(matches if isinstance(matches[0], str) else ["".join(m) for m in matches])
+            if not matches:
+                continue
+
+            normalized: list[str] = []
+            for match in matches:
+                if isinstance(match, tuple):
+                    parts = [part for part in match if part]
+                    if parts:
+                        normalized.append(" ".join(parts))
+                else:
+                    normalized.append(match)
+
+            for expr in normalized:
+                cleaned = expr.strip()
+                if cleaned and cleaned not in time_expressions:
+                    time_expressions.append(cleaned)
 
         # Financial entity detection
         financial_matches = words.intersection(self.FINANCIAL_KEYWORDS)

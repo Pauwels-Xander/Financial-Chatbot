@@ -234,11 +234,25 @@ class PipelineOrchestrator:
                 r"\b\d{4}\b",  # Year
             ]
 
-            found_expressions = []
+            found_expressions: list[str] = []
             for pattern in time_patterns:
-                matches = list(set(re.findall(pattern, query, re.IGNORECASE)))
-                if matches:
-                    found_expressions.extend([m if isinstance(m, str) else "".join(m) for m in matches])
+                matches = re.findall(pattern, query, re.IGNORECASE)
+                if not matches:
+                    continue
+
+                normalized: list[str] = []
+                for match in matches:
+                    if isinstance(match, tuple):
+                        parts = [part for part in match if part]
+                        if parts:
+                            normalized.append(" ".join(parts))
+                    else:
+                        normalized.append(match)
+
+                for expr in normalized:
+                    cleaned = expr.strip()
+                    if cleaned and cleaned not in found_expressions:
+                        found_expressions.append(cleaned)
 
             if not found_expressions:
                 return None
@@ -326,7 +340,6 @@ class PipelineOrchestrator:
                 "rows": len(df),
                 "columns": list(df.columns),
                 "data": df.to_dict(orient="records"),
-                "dataframe": df,
             }
         except SQLExecutionTimeout:
             result.errors.append("SQL execution timed out")
