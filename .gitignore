@@ -50,16 +50,11 @@ mlruns/
 # ------------------------------
 # Data & Models
 # ------------------------------
-data/
 datasets/
 raw_data/
 processed_data/
 models/
 checkpoints/
-*.db
-*.sqlite
-*.duckdb
-*.csv
 *.tsv
 *.xlsx
 *.parquet
