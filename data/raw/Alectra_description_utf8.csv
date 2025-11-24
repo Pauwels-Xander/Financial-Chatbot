@@ -1,0 +1,461 @@
+account_id,account_name,is_control,parent_account_id,description
+1005,Cash,True,,Cash on hand and cash equivalents available for general operations.
+1010,Cash Advances and Working Funds,True,,Cash advances and working funds held for operational needs.
+1015,Accounts Receivable for Financial Assistance,True,,Receivables related to financial assistance provided to customers or partners.
+1020,Interest Special Deposits,True,,Special deposits of interest held in trust for specific obligations or accounts.
+1030,Dividend Special Deposits,True,,Special deposits set aside to pay dividends or related obligations.
+1040,Other Special Deposits,True,,Special deposits held for various designated purposes.
+1060,Term Deposits,True,,Funds invested in fixed-term deposits with financial institutions.
+1070,Current Investments,True,,Income or expense related to renting property or equipment.
+1100,Customer Accounts Receivable,True,,Amounts owed to Alectra by customers for electricity sales or services.
+1102,Accounts Receivable - Services,True,,Amounts billed for services provided that remain outstanding.
+1104,Accounts Receivable - Recoverable Work,True,,Amounts owed for recoverable work performed on behalf of customers or third parties.
+1105,"Accounts Receivable - Merchandise Jobbing, etc.",True,,Receivables from sales of merchandise or jobbing activities.
+1110,Other Accounts Receivable,True,,Amounts owed to Alectra by customers for electricity sales or services.
+1115,Accounts Receivable for Financial Assistance,True,,Receivables related to financial assistance provided to customers or partners.
+1120,Accrued Utility Revenues,True,,"Revenue generated from the provision of goods, services or other activities."
+1130,Accumulated Provision for Uncollectible Accounts--Credit,True,,Allowance for doubtful accounts to cover receivables expected to be uncollectible.
+1140,Interest and Dividends Receivable,True,,Receivables due from customers or counterparties for goods sold or services rendered.
+1150,Rents Receivable,True,,Receivables due from customers or counterparties for goods sold or services rendered.
+1170,Notes Receivable,True,,Receivables due from customers or counterparties for goods sold or services rendered.
+1180,Prepayments,True,,Prepaid expenses representing payments for services or benefits to be received in the future.
+1190,Miscellaneous Current and Accrued Assets,True,,Income or expense related to renting property or equipment.
+1200,Accounts Receivable from Associated Companies,True,,Amounts due from associated companies for goods or services provided.
+1210,Notes Receivable from Associated Companies,True,,Amounts due from associated companies for goods or services provided.
+1305,Fuel Stock,True,,Inventory of fuel supplies used for power generation.
+1330,Plant Materials and Operating Supplies,True,,Cost of utility plant and equipment used in operations.
+1340,Merchandise,True,,Inventory of merchandise held for resale.
+1350,Non Rate-Regulated Materials and Supplies,True,,Materials and supplies not subject to rate regulation.
+1405,Non-Current Investments in Non-Associated Companies,True,,Income or expense related to renting property or equipment.
+1407,Finance Lease Receivable,True,,Receivables due from customers or counterparties for goods sold or services rendered.
+1408,Long Term Receivable - Street Lighting Transfer,True,,Receivables due from customers or counterparties for goods sold or services rendered.
+1410,Other Special or Collateral Funds,True,,Funds set aside for specific purposes or held as collateral.
+1415,Sinking Funds,True,,Funds accumulated to retire debt or finance future obligations.
+1425,Unamortized Debt Expense,True,,Operating and maintenance expenses incurred in the course of utility operations.
+1445,Unamortized Discount on Long-Term Debt--Debit,True,,Unamortized discount on long-term debt recorded as a debit.
+1455,Unamortized Deferred Foreign Currency Translation Gains and Losses,True,,Unamortized deferred gains and losses arising from foreign currency translation.
+1460,Other Non-Current Assets,True,,Income or expense related to renting property or equipment.
+1480,Portfolio Investments - Associated Companies,True,,Investments in associated companies not consolidated.
+1481,Investment in Equity - Accounted Joint Venture,True,,Equity investment in a joint venture accounted for using the equity method.
+1485,Investment in Associated Companies - Significant Influence,True,,Equity investment in associated companies over which Alectra has significant influence.
+1490,Investment in Subsidiary Companies,True,,Equity investment in subsidiary companies.
+1495,Deferred Taxes - Non-Current Assets,True,,Deferred tax assets or liabilities arising from temporary differences.
+1505,Unrecovered Plant and Regulatory Study Costs,True,,Cost of utility plant and equipment used in operations.
+1508,Other Regulatory Assets,True,,Regulatory assets awaiting future recovery through customer rates.
+1509,Impacts Arising from the COVID-19 Emergency,True,,Regulatory account capturing impacts related to the COVIDâ€‘19 emergency.
+1510,Preliminary Survey and Investigation Charges,True,,Costs incurred for preliminary surveys and investigations for future projects.
+1511,Incremental Cloud Computing Implementation Costs,True,,Capitalized costs for implementing cloud computing systems.
+1515,Emission Allowance Inventory,True,,Inventory of emission allowances held for regulatory compliance.
+1516,Emission Allowances Withheld,True,,Emission allowances withheld pending surrender or sale.
+1518,RCVARetail,True,,Retail Cost Variance Account tracking differences between forecast and actual retail costs.
+1521,Special Purpose Charge Assessment Variance Account,True,,Deferral or variance account established to capture timing differences for regulatory purposes.
+1522,Pension & OPEB Forecast Accrual versus Actual Cash Payment Differential,True,,Cash on hand and cash equivalents available for general operations.
+1525,Miscellaneous Deferred Debits,True,,Deferred costs recorded for miscellaneous purposes awaiting future recognition.
+1530,Deferred Losses from Disposition of Utility Plant,True,,Cost of utility plant and equipment used in operations.
+1531,Renewable Connection Capital Deferral Account,True,,Deferral or variance account established to capture timing differences for regulatory purposes.
+1532,Renewable Connection OM&A Deferral Account,True,,Deferral or variance account established to capture timing differences for regulatory purposes.
+1533,Renewable Generation Connection Funding Adder Deferral Account,True,,Deferral or variance account established to capture timing differences for regulatory purposes.
+1534,Smart Grid Capital Deferral Account,True,,Deferral account for capital costs of smart grid initiatives.
+1535,Smart Grid OM&A Deferral Account,True,,Deferral account for capital costs of smart grid initiatives.
+1536,Smart Grid Funding Adder Deferral Account,True,,Deferral account for capital costs of smart grid initiatives.
+1540,Unamortized Loss on Reacquired Debt,True,,Unamortized loss resulting from the early reacquisition of debt.
+1548,RCVASTR,True,,Retail Cost Variance Account tracking differences between forecast and actual retail costs.
+1550,LV Variance Account,True,,Deferral or variance account established to capture timing differences for regulatory purposes.
+1551,Smart Metering Entity Charge Variance Account,True,,Deferral or variance account established to capture timing differences for regulatory purposes.
+1555,Smart Meter Capital and Recovery Offset Variance Account,True,,Deferral or variance account established to capture timing differences for regulatory purposes.
+1556,Smart Meter OM&A Variance Account,True,,Deferral or variance account established to capture timing differences for regulatory purposes.
+1557,Meter Cost Deferral Account,True,,Deferral or variance account established to capture timing differences for regulatory purposes.
+1567,Board-Approval CDM Variance Account,True,,Deferral or variance account established to capture timing differences for regulatory purposes.
+1568,LRAM Variance Account,True,,Deferral or variance account established to capture timing differences for regulatory purposes.
+1572,Extraordinary Event Costs,True,,Costs associated with extraordinary or non-recurring events.
+1574,Deferred Rate Impact Amounts,True,,Amounts deferred to smooth the impact of rate changes on customers.
+1575,IFRS-CGAAP Transitional PP&E Amounts,True,,"Balances arising from the transition between IFRS and Canadian GAAP for property, plant and equipment."
+1576,CGAAP Accounting Changes,True,,Adjustments and balances related to changes in Canadian GAAP accounting policies.
+1580,RSVA - Wholesale Market Service Charge,True,,Retail Settlement Variance Account capturing differences between billed and actual settlement amounts.
+1582,RSVAONE-TIME,True,,Retail Settlement Variance Account capturing differences between billed and actual settlement amounts.
+1584,RSVA - Retail Transmission Network Charge,True,,Retail Settlement Variance Account capturing differences between billed and actual settlement amounts.
+1586,RSVA - Retail Transmission Connection Charge,True,,Retail Settlement Variance Account capturing differences between billed and actual settlement amounts.
+1588,RSVA - Power (excluding Global Adjustment),True,,Retail Settlement Variance Account capturing differences between billed and actual settlement amounts.
+1589,RSVA - Global Adjustment,True,,Retail Settlement Variance Account capturing differences between billed and actual settlement amounts.
+1592,PILs and Tax Variance for 2006 and Subsequent Years,True,,Account capturing variances in tax expenses.
+1595,Disposition and Recovery/Refund of Regulatory Balances (2008),True,,Account tracking the disposition and recovery or refund of regulatory balances for the 2008 period.
+1606,Organization,True,,Organizational costs incurred in forming and structuring the company.
+1608,Franchises and Consents,True,,Costs of obtaining franchises and consents required to operate in service territories.
+1609,Capital Contributions Paid,True,,Capital contributions paid for utility infrastructure or interconnection projects.
+1610,Miscellaneous Intangible Plant,True,,Cost of utility plant and equipment used in operations.
+1611,Computer Software,True,,Costs of computer software used in business operations.
+1612,Land Rights,True,,Intangible rights to use land for utility operations.
+1615,Land,True,,Cost of land owned and used for utility operations.
+1616,Land Rights,True,,Intangible rights to use land for utility operations.
+1620,Buildings and Fixtures,True,,Cost of buildings and fixtures used in utility operations.
+1630,Leasehold Improvements,True,,Costs incurred to improve leased property.
+1635,Boiler Plant Equipment,True,,Cost of utility plant and equipment used in operations.
+1640,Engines and Engine-Driven Generators,True,,Costs of engines and engine-driven generators used for power generation.
+1645,Turbogenerator Units,True,,Cost of turbogenerator units used in power generation.
+1650,"Reservoirs, Dams and Waterways",True,,"Cost of reservoirs, dams and waterways for hydroelectric generation."
+1655,"Water Wheels, Turbines and Generators",True,,"Costs of water wheels, turbines and generators."
+1660,"Roads, Railroads and Bridges",True,,"Cost of roads, railroads and bridges providing access to utility facilities."
+1665,"Fuel Holders, Producers and Accessories",True,,"Costs of fuel storage holders, production equipment and related accessories."
+1670,Prime Movers,True,,Cost of prime movers used in power generation.
+1675,Generators,True,,Cost of electric generators used in power generation.
+1680,Accessory Electric Equipment,True,,Cost of utility plant and equipment used in operations.
+1685,Miscellaneous Power Plant Equipment,True,,Cost of utility plant and equipment used in operations.
+1705,Land,True,,Cost of land owned and used for utility operations.
+1706,Land Rights,True,,Intangible rights to use land for utility operations.
+1708,Buildings and Fixtures,True,,Cost of buildings and fixtures used in utility operations.
+1710,Leasehold Improvements,True,,Costs incurred to improve leased property.
+1715,Station Equipment,True,,Cost of utility plant and equipment used in operations.
+1720,Towers and Fixtures,True,,Cost of buildings and fixtures used in utility operations.
+1725,Poles and Fixtures,True,,Cost of buildings and fixtures used in utility operations.
+1730,Overhead Conductors and Devices,True,,Costs associated with overhead distribution lines and conductors.
+1735,Underground Conduit,True,,Costs associated with underground conduits or conductors used for electricity distribution.
+1740,Underground Conductors and Devices,True,,Costs associated with underground conduits or conductors used for electricity distribution.
+1745,Roads and Trails,True,,Costs associated with roads and trails providing access to utility property.
+1805,Land,True,,Cost of land owned and used for utility operations.
+1808,Buildings and Fixtures,True,,Cost of buildings and fixtures used in utility operations.
+1810,Leasehold Improvements,True,,Costs incurred to improve leased property.
+1815,Transformer Station Equipment - Normally Primary above 50 kV,True,,Cost of equipment located at transformer stations.
+1820,Distribution Station Equipment - Normally Primary below 50 kV,True,,Cost of equipment at distribution stations.
+1825,Storage Battery Equipment,True,,Cost of utility plant and equipment used in operations.
+1830,"Poles, Towers and Fixtures",True,,Cost of buildings and fixtures used in utility operations.
+1835,Overhead Conductors and Devices,True,,Costs associated with overhead distribution lines and conductors.
+1840,Underground Conduit,True,,Costs associated with underground conduits or conductors used for electricity distribution.
+1845,Underground Conductors and Devices,True,,Costs associated with underground conduits or conductors used for electricity distribution.
+1850,Line Transformers,True,,Cost of transformer equipment used in power distribution.
+1855,Services,True,,Costs of distribution service lines installed to serve customers.
+1860,Meters,True,,Cost of electricity meters installed to measure customer consumption.
+1865,Other Installations on Customer's Premises,True,,Costs of other installations located on customer premises for utility service.
+1870,Leased Property on Customer Premises,True,,Cost of property leased and installed on customer premises for utility purposes.
+1875,Street Lighting and Signal Systems,True,,Costs associated with street lighting and signal systems.
+1905,Land,True,,Cost of land owned and used for utility operations.
+1908,Buildings and Fixtures,True,,Cost of buildings and fixtures used in utility operations.
+1910,Leasehold Improvements,True,,Costs incurred to improve leased property.
+1915,Office Furniture and Equipment,True,,Cost of utility plant and equipment used in operations.
+1920,Computer Equipment - Hardware,True,,Cost of utility plant and equipment used in operations.
+1930,Transportation Equipment,True,,Cost of utility plant and equipment used in operations.
+1935,Stores Equipment,True,,Cost of utility plant and equipment used in operations.
+1940,"Tools, Shop and Garage Equipment",True,,Cost of utility plant and equipment used in operations.
+1945,Measurement and Testing Equipment,True,,Cost of utility plant and equipment used in operations.
+1950,Power Operated Equipment,True,,Cost of utility plant and equipment used in operations.
+1955,Communication Equipment,True,,Cost of utility plant and equipment used in operations.
+1960,Miscellaneous Equipment,True,,Cost of utility plant and equipment used in operations.
+1970,Load Management Controls - Customer Premises,True,,Costs of load management control equipment installed on customer premises.
+1975,Load Management Controls - Utility Premises,True,,Costs of load management control equipment installed on utility premises.
+1980,System Supervisory Equipment,True,,Cost of utility plant and equipment used in operations.
+1985,Sentinel Lighting Rental Units,True,,Income or expense related to renting property or equipment.
+1990,Other Tangible Property,True,,Costs of other tangible property used in utility operations not classified elsewhere.
+1995,Contributions and Grants - Credit,True,,Capital contributions and grants received from third parties recorded as a credit.
+2005,Property Under Finance Leases,True,,Cost of property acquired under finance lease arrangements.
+2010,Electric Plant Purchased or Sold,True,,Cost of utility plant and equipment used in operations.
+2020,Experimental Electric Plant Unclassified,True,,Cost of utility plant and equipment used in operations.
+2030,Electric Plant and Equipment Leased to Others,True,,Cost of utility plant and equipment used in operations.
+2040,Electric Plant Held for Future Use,True,,Cost of utility plant and equipment used in operations.
+2050,Completed Construction Not Classified--Electric,True,,Completed construction of electric plant not yet classified to a specific plant account.
+2055,Construction Work in Progress--Electric,True,,Costs of electric utility construction projects currently in progress.
+2060,Electric Plant Acquisition Adjustment,True,,Cost of utility plant and equipment used in operations.
+2065,Other Electric Plant Adjustment,True,,Cost of utility plant and equipment used in operations.
+2070,Other Utility Plant,True,,Cost of utility plant and equipment used in operations.
+2075,Non Rate-Regulated Utility Property Owned or Under Finance Leases,True,,Utility property not subject to rate regulation that is owned or under finance leases.
+2105,"Accumulated Depreciation of Electric Utility Plant - Property, Plant and Equipment",True,,Accumulated depreciation or provisions related to utility plant assets.
+2120,Accumulated Amortization of Electric Utility Plant - Intangibles,True,,Cost of utility plant and equipment used in operations.
+2140,Accumulated Amortization of Electric Plant Acquisition Adjustment,True,,Cost of utility plant and equipment used in operations.
+2160,Accumulated Depreciation of Other Utility Plant,True,,Accumulated depreciation or provisions related to utility plant assets.
+2180,Accumulated Depreciation of Non Rate-Regulated Utility Property,True,,Depreciation expense for tangible assets.
+2205,Accounts Payable,True,,"Amounts owed by Alectra to suppliers, vendors or creditors for goods and services received."
+2208,Customer Credit Balances,True,,"Credit balances owed to customers, such as overpayments or deposits."
+2210,Customer Deposits,True,,Deposits received from customers to guarantee payment for services.
+2215,Dividends Declared,True,,Dividends declared but not yet paid to shareholders.
+2220,Miscellaneous Current and Accrued Liabilities,True,,Income or expense related to renting property or equipment.
+2225,Notes and Loans Payable,True,,Debt obligations including notes and loans payable to lenders or related parties.
+2240,Accounts Payable to Associated Companies,True,,Amounts payable to associated companies.
+2242,Notes Payable to Associated Companies,True,,Amounts payable to associated companies.
+2250,Debt Retirement Charges( DRC) Payable,True,,"Amounts owed by Alectra to suppliers, vendors or creditors for goods and services received."
+2252,Transmission Charges Payable,True,,"Amounts owed by Alectra to suppliers, vendors or creditors for goods and services received."
+2254,Electrical Safety Authority Fees Payable,True,,"Amounts owed by Alectra to suppliers, vendors or creditors for goods and services received."
+2256,Independent Electricity System Operator Fees and Penalties Payable,True,,"Amounts owed by Alectra to suppliers, vendors or creditors for goods and services received."
+2260,Current Long Term Debt,True,,Income or expense related to renting property or equipment.
+2264,OMERS - Current,True,,Income or expense related to renting property or equipment.
+2265,Non-OMERS - Current,True,,Income or expense related to renting property or equipment.
+2268,Accrued Interest on Long Term Debt,True,,Interest accrued on long-term debt but not yet paid.
+2270,Matured Long Term Debt,True,,Principal amount of long-term debt that has matured and is due for payment.
+2272,Matured Interest on Long Term Debt,True,,Interest payable on long-term debt that has matured and is due.
+2285,Obligations Under Finance Leases - Current,True,,Income or expense related to renting property or equipment.
+2290,Commodity Taxes,True,,Account capturing variances in tax expenses.
+2292,Payroll Deductions / Expenses Payable,True,,"Amounts owed by Alectra to suppliers, vendors or creditors for goods and services received."
+2294,"Accrual for Taxes Payments in Lieu of Taxes, Etc.",True,,Account capturing variances in tax expenses.
+2305,Accumulated Provision for Injuries and Damages,True,,"Accumulated provision for claims, injuries and damage liabilities."
+2306,OPEB Liability,True,,Liability for other post-employment benefits owed to employees.
+2308,Other Pensions Liability,True,,Liability for pension obligations other than the main pension plan.
+2310,Vested Sick Leave Liability,True,,Liability for vested sick leave benefits owed to employees.
+2312,Past Service Costs - Other Post-Employment Benefits,True,,Past service costs associated with other post-employment benefit plans.
+2313,Past Service Costs - Other Pension Plans,True,,Past service cost associated with other pension plans.
+2315,Accumulated Provision for Rate Refunds,True,,Accumulated provision for amounts to be refunded to ratepayers.
+2320,Other Miscellaneous Non-Current Liabilities,True,,Income or expense related to renting property or equipment.
+2325,Obligations Under Finance Lease - Non-Current,True,,Income or expense related to renting property or equipment.
+2335,Non-Current Customer Deposits,True,,Income or expense related to renting property or equipment.
+2340,Collateral Funds Liability,True,,Liability representing funds held as collateral.
+2345,Unamortized Premium on Long Term Debt,True,,Unamortized premium on outstanding long-term debt.
+2348,OMERS - Long-Term,True,,Balance related to the Ontario Municipal Employees Retirement System obligations.
+2350,Deferred Tax - Non-Current Liability,True,,Deferred tax assets or liabilities arising from temporary differences.
+2405,Other Regulatory Liabilities or Credits,True,,Regulatory liabilities or credits not otherwise classified.
+2410,Deferred Gains from Disposition of Utility Plant,True,,Cost of utility plant and equipment used in operations.
+2415,Unamortized Gain on Reacquired Debt,True,,Unamortized gains resulting from reacquiring debt prior to maturity.
+2425,Other Deferred Credits,True,,Deferred credits for miscellaneous purposes pending future recognition.
+2435,Accrued Rate-Payer Benefit,True,,Accrued benefits payable to ratepayers.
+2440,Deferred Revenues,True,,"Revenue generated from the provision of goods, services or other activities."
+2505,Debentures Outstanding - Long Term,True,,Outstanding debenture debt with long-term maturity.
+2510,Debenture Advances,True,,Advances received from the issuance of debentures.
+2515,Reacquired Bonds,True,,Bonds reacquired prior to maturity awaiting disposition.
+2520,Other Non-Current Debt,True,,Income or expense related to renting property or equipment.
+2525,Term Bank Loans - Long Term,True,,Long-term bank loans outstanding.
+2550,Advances from Associated Companies,True,,Advances received from associated companies.
+3005,Common Shares Issued,True,,Par value or stated value of common shares issued.
+3008,Preference Shares Issued,True,,Par value or stated value of preference shares issued.
+3010,Contributed Surplus,True,,Amounts received in excess of par value for issued shares (contributed surplus).
+3020,Donations Received,True,,Donations received by the utility.
+3022,Development Charges Transferred to Equity,True,,Development charges transferred to shareholdersâ€™ equity.
+3026,Capital Stock Held in Treasury,True,,Capital stock reacquired and held in the companyâ€™s treasury.
+3030,Miscellaneous Paid-In Capital,True,,Miscellaneous amounts of paid-in capital contributed to the company.
+3035,Installments Received on Capital Stock,True,,Installments received on subscriptions to capital stock.
+3040,Appropriated Retained Earnings,True,,Portion of retained earnings appropriated for specific purposes.
+3045,Unappropriated Retained Earnings,True,,Retained earnings not appropriated or designated for specific purposes.
+3046,Balance Transferred From Income,True,,"Revenue generated from the provision of goods, services or other activities."
+3047,Appropriations of Retained Earnings - Current Period,True,,Income or expense related to renting property or equipment.
+3048,Dividends Payable-Preference Shares,True,,"Amounts owed by Alectra to suppliers, vendors or creditors for goods and services received."
+3049,Dividends Payable-Common Shares,True,,"Amounts owed by Alectra to suppliers, vendors or creditors for goods and services received."
+3055,Adjustment to Retained Earnings,True,,"Adjustments made to retained earnings, such as prior period adjustments."
+3065,Unappropriated Undistributed Subsidiary Earnings,True,,Share of subsidiary earnings not distributed or appropriated.
+3075,Non Rate-Regulated Utility Shareholders' Equity,True,,Equity associated with non rate-regulated utility operations.
+3080,Current Taxes - Shareholders' Equity,True,,Account capturing variances in tax expenses.
+3081,Deferred Taxes - Shareholders' Equity,True,,Deferred tax assets or liabilities arising from temporary differences.
+3090,Accumulated Other Comprehensive Income,True,,"Revenue generated from the provision of goods, services or other activities."
+4006,Residential Energy Sales,True,,Revenue earned from energy sales to residential and commercial customers.
+4010,Commercial Energy Sales,True,,Revenue earned from energy sales to residential and commercial customers.
+4015,Industrial Energy Sales,True,,Revenue earned from energy sales to residential and commercial customers.
+4020,Energy Sales to Large Users,True,,Revenue earned from energy sales to residential and commercial customers.
+4025,Street Lighting Energy Sales,True,,Revenue earned from energy sales to residential and commercial customers.
+4030,Sentinel Lighting Energy Sales,True,,Revenue earned from energy sales to residential and commercial customers.
+4035,General Energy Sales,True,,Revenue earned from energy sales to residential and commercial customers.
+4040,Other Energy Sales to Public Authorities,True,,Revenue earned from energy sales to residential and commercial customers.
+4050,Revenue Adjustment,True,,"Revenue generated from the provision of goods, services or other activities."
+4055,Energy Sales For Retailers/Others,True,,Revenue earned from energy sales to residential and commercial customers.
+4060,Interdepartmental Energy Sales,True,,Revenue earned from energy sales to residential and commercial customers.
+4062,Billed WMS,True,,Revenue billed for Wholesale Market Service charges.
+4064,Billed - WMS-ONE-TIME,True,,Billing for one-time Wholesale Market Service charges.
+4066,Billed NW,True,,Billing for Network service charges.
+4068,Billed CN,True,,Billing for Connection service charges.
+4075,Billed - LV,True,,Billing for Low Voltage service charges.
+4076,Billed â€“ Smart Metering Entity Charge,True,,Billing for smart metering entity charges to customers.
+4080,Distribution Services Revenue,True,,Revenue from providing distribution services to customers.
+4082,Retail Services Revenues,True,,Revenue from retail electricity services provided to consumers.
+4084,Service Transaction Requests (STR) Revenues,True,,Revenue from processing service transaction requests (STR).
+4086,SSS Administration Revenue,True,,Revenue from administering the Standard Supply Service.
+4090,Electric Services Incidental to Energy Sales,True,,Revenue from sale of electricity and related services.
+4105,Transmission Charges Revenue,True,,"Revenue generated from the provision of goods, services or other activities."
+4110,Transmission Services Revenue,True,,Revenue from providing transmission services.
+4205,Interdepartmental Rents,True,,Income or expense related to renting property or equipment.
+4210,Rent from Electric Property,True,,Income or expense related to renting property or equipment.
+4215,Other Utility Operating Income,True,,"Revenue generated from the provision of goods, services or other activities."
+4220,Other Electric Revenues,True,,Revenue from sale of electricity and related services.
+4225,Late Payment Charges,True,,Revenue from late payment charges on overdue accounts.
+4230,Sales of Water and Water Power,True,,"Revenue generated from the provision of goods, services or other activities."
+4235,Miscellaneous Service Revenues,True,,Miscellaneous revenue from electric services and other service charges.
+4240,Provision for Rate Refunds,True,,Provision set aside for amounts to be refunded to customers.
+4245,Government and Other Assistance Directly Credited to Income,True,,"Revenue generated from the provision of goods, services or other activities."
+4305,Regulatory Debits,True,,Amounts recorded as regulatory debits pending recovery from customers.
+4310,Regulatory Credits,True,,Amounts recorded as regulatory credits pending refund to customers.
+4315,Revenues from Electric Plant Leased to Others,True,,Revenue from sale of electricity and related services.
+4320,Expenses of Electric Plant Leased to Others,True,,Operating and maintenance expenses incurred in the course of utility operations.
+4324,Special Purpose Charge Recovery,True,,Recovery from customers related to special purpose charges.
+4325,Revenues from Merchandise,True,,"Revenue generated from the provision of goods, services or other activities."
+4330,Costs and Expenses of Merchandising,True,,Operating and maintenance expenses incurred in the course of utility operations.
+4335,Profits and Losses from Financial Instrument Hedges,True,,Profits or losses recognized from hedging activities using financial instruments.
+4340,Profits and Losses from Financial Instrument Investments,True,,Profits or losses arising from investments in financial instruments.
+4345,Gains from Disposition of Future Use Utility Plant,True,,Cost of utility plant and equipment used in operations.
+4350,Losses from Disposition of Future Use Utility Plant,True,,Cost of utility plant and equipment used in operations.
+4355,Gain on Disposition of Utility and Other Property,True,,Gain recognized from the sale or disposition of utility and other property.
+4357,Gain from Retirement of Utility and Other Property,True,,Gain recognized when utility or other property is retired.
+4360,Loss on Disposition of Utility and Other Property,True,,Loss recognized from the sale or disposition of utility and other property.
+4362,Loss from Retirement of Utility and Other Property,True,,Loss recognized upon retirement of utility and other property.
+4365,Gains from Disposition of Allowances for Emission,True,,Gains realized from the sale or disposition of emission allowances.
+4370,Losses from Disposition of Allowances for Emission,True,,Losses incurred from the sale or disposition of emission allowances.
+4375,Revenues from Non Rate-Regulated Utility Operations,True,,"Revenue generated from the provision of goods, services or other activities."
+4380,Expenses of Non Rate-Regulated Utility Operations,True,,Operating and maintenance expenses incurred in the course of utility operations.
+4385,Non Rate-Regulated Utility Rental Income,True,,Rental income from property or equipment leased to others.
+4390,Miscellaneous Non-Operating Income,True,,"Revenue generated from the provision of goods, services or other activities."
+4395,Rate-Payer Benefit Including Interest,True,,"Benefit returned to ratepayers, including an interest component."
+4398,"Foreign Exchange Gains and Losses, Including Amortization",True,,Amortization expense for longâ€‘term assets.
+4405,Interest and Dividend Income,True,,"Revenue generated from the provision of goods, services or other activities."
+4410,Lessor's Net Investment in Finance Lease,True,,The lessorâ€™s net investment in finance lease agreements.
+4415,Equity in Earnings of Subsidiary Companies,True,,Share of earnings in subsidiary companies recognized by Alectra.
+4420,Share of Profit or Loss of Joint Venture,True,,Alectraâ€™s share of profit or loss from joint venture operations.
+4505,Operation Supervision and Engineering,True,,Costs associated with supervising and engineering utility operations.
+4510,Fuel,True,,Cost of fuel used in power generation.
+4515,Steam Expense,True,,Operating and maintenance expenses incurred in the course of utility operations.
+4520,Steam From Other Sources,True,,Steam purchased or obtained from external sources.
+4525,Steam Transferred--Credit,True,,Credit for steam transferred to other departments or operations.
+4530,Electric Expense,True,,Operating and maintenance expenses incurred in the course of utility operations.
+4535,Water For Power,True,,Cost of water used for power generation.
+4540,Water Power Taxes,True,,Account capturing variances in tax expenses.
+4545,Hydraulic Expenses,True,,Operating and maintenance expenses incurred in the course of utility operations.
+4550,Generation Expense,True,,Operating and maintenance expenses incurred in the course of utility operations.
+4555,Miscellaneous Power Generation Expenses,True,,Operating and maintenance expenses incurred in the course of utility operations.
+4560,Rents,True,,Income or expense related to renting property or equipment.
+4565,Allowances for Emissions,True,,Expense associated with emission allowances used for regulatory compliance.
+4605,Maintenance Supervision and Engineering,True,,Costs incurred to maintain utility plant and infrastructure.
+4610,Maintenance of Structures,True,,Costs incurred to maintain utility plant and infrastructure.
+4615,Maintenance of Boiler Plant,True,,Cost of utility plant and equipment used in operations.
+4620,Maintenance of Electric Plant,True,,Cost of utility plant and equipment used in operations.
+4625,"Maintenance of Reservoirs, Dams and Waterways",True,,Costs incurred to maintain utility plant and infrastructure.
+4630,"Maintenance of Water Wheels, Turbines and Generators",True,,Costs incurred to maintain utility plant and infrastructure.
+4635,Maintenance of Generating and Electric Plant,True,,Cost of utility plant and equipment used in operations.
+4640,Maintenance of Miscellaneous Power Generation Plant,True,,Cost of utility plant and equipment used in operations.
+4705,Power Purchased,True,,Cost of electric power purchased from other suppliers.
+4707,Charges - Global Adjustment,True,,Charges related to the global adjustment component of electricity pricing.
+4708,Charges-WMS,True,,Charges related to wholesale market service.
+4710,Cost of Power Adjustments,True,,Adjustments to power costs such as true-ups or corrections.
+4712,Charges-One-Time,True,,One-time charges billed to customers or recorded by the utility.
+4714,Charges-NW,True,,Account used to record network service charges.
+4715,System Control and Load Dispatching,True,,Costs associated with controlling the electrical system and dispatching load.
+4716,Charges-CN,True,,Charges related to transmission connection services.
+4720,Other Expenses,True,,Operating and maintenance expenses incurred in the course of utility operations.
+4750,Charges - LV,True,,Charges related to low voltage services.
+4751,Charges â€“ Smart Metering Entity Charge,True,,Charges from the Smart Metering Entity for metering services.
+4805,Operation Supervision and Engineering,True,,Costs associated with supervising and engineering utility operations.
+4810,Load Dispatching,True,,Costs associated with load dispatching and system control.
+4815,Station Buildings and Fixtures Expenses,True,,Operating and maintenance expenses incurred in the course of utility operations.
+4820,Transformer Station Equipment - Operating Labour,True,,Cost of equipment located at transformer stations.
+4825,Transformer Station Equipment - Operating Supplies and Expense,True,,Operating and maintenance expenses incurred in the course of utility operations.
+4830,Overhead Line Expenses,True,,Operating and maintenance expenses incurred in the course of utility operations.
+4835,Underground Line Expenses,True,,Operating and maintenance expenses incurred in the course of utility operations.
+4840,Transmission of Electricity by Others,True,,Cost of electricity transmission services provided by other entities.
+4845,Miscellaneous Transmission Expense,True,,Operating and maintenance expenses incurred in the course of utility operations.
+4850,Rents,True,,Income or expense related to renting property or equipment.
+4905,Maintenance Supervision and Engineering,True,,Costs incurred to maintain utility plant and infrastructure.
+4910,Maintenance of Transformer Station Buildings and Fixtures,True,,Cost of buildings and fixtures used in utility operations.
+4916,Maintenance of Transformer Station Equipment,True,,Cost of equipment located at transformer stations.
+4930,"Maintenance of Towers, Poles and Fixtures",True,,Cost of buildings and fixtures used in utility operations.
+4935,Maintenance of Overhead Conductors and Devices,True,,Costs associated with overhead distribution lines and conductors.
+4940,Maintenance of Overhead Lines - Right of Way,True,,Costs associated with overhead distribution lines and conductors.
+4945,Maintenance of Overhead Lines - Roads and Trails Repairs,True,,Costs associated with overhead distribution lines and conductors.
+4950,Maintenance of Overhead Lines - Snow Removal from Roads and Trails,True,,Costs associated with overhead distribution lines and conductors.
+4960,Maintenance of Underground Lines,True,,Costs associated with underground conduits or conductors used for electricity distribution.
+4965,Maintenance of Miscellaneous Transmission Plant,True,,Cost of utility plant and equipment used in operations.
+5005,Operation Supervision and Engineering,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5010,Load Dispatching,True,,Costs associated with load dispatching and system control.
+5012,Station Buildings and Fixtures Expense,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5014,Transformer Station Equipment - Operation Labour,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5015,Transformer Station Equipment - Operation Supplies and Expenses,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5016,Distribution Station Equipment - Operation Labour,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5017,Distribution Station Equipment - Operation Supplies and Expenses,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5020,Overhead Distribution Lines and Feeders - Operation Labour,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5025,Overhead Distribution Lines and Feeders - Operation Supplies and Expenses,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5030,Overhead Subtransmission Feeders - Operation,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5035,Overhead Distribution Transformers- Operation,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5040,Underground Distribution Lines and Feeders - Operation Labour,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5045,Underground Distribution Lines and Feeders - Operation Supplies and Expenses,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5050,Underground Subtransmission Feeders - Operation,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5055,Underground Distribution Transformers - Operation,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5060,Street Lighting and Signal System Expense,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5065,Meter Expense,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5070,Customer Premises - Operation Labour,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5075,Customer Premises - Materials and Expenses,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5085,Miscellaneous Distribution Expense,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5090,Underground Distribution Lines and Feeders - Rental Paid,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5095,Overhead Distribution Lines and Feeders - Rental Paid,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5096,Other Rent,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5105,Maintenance Supervision and Engineering,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5110,Maintenance of Buildings and Fixtures - Distribution Stations,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5112,Maintenance of Transformer Station Equipment,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5114,Maintenance of Distribution Station Equipment,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5120,"Maintenance of Poles, Towers and Fixtures",True,,Operating and maintenance expenses incurred in the course of utility operations.
+5125,Maintenance of Overhead Conductors and Devices,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5130,Maintenance of Overhead Services,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5135,Overhead Distribution Lines and Feeders - Right of Way,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5145,Maintenance of Underground Conduit,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5150,Maintenance of Underground Conductors and Devices,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5155,Maintenance of Underground Services,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5160,Maintenance of Line Transformers,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5165,Maintenance of Street Lighting and Signal Systems,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5170,Sentinel Lights - Labour,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5172,Sentinel Lights - Materials and Expenses,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5175,Maintenance of Meters,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5178,Customer Installations Expenses- Leased Property,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5195,Maintenance of Other Installations on Customer Premises,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5205,Purchase of Transmission and System Services,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5210,Transmission Charges,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5215,Transmission Charges Recovered,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5305,Supervision,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5310,Meter Reading Expense,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5315,Customer Billing,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5320,Collecting,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5325,Collecting- Cash Over and Short,True,,Cash on hand and cash equivalents available for general operations.
+5330,Collection Charges,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5335,Bad Debt Expense,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5340,Miscellaneous Customer Accounts Expenses,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5405,Supervision,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5410,Community Relations - Sundry,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5415,Energy Conservation,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5420,Community Safety Program,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5425,Miscellaneous Customer Service and Informational Expenses,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5505,Supervision,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5510,Demonstrating and Selling Expense,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5515,Advertising Expense,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5520,Miscellaneous Sales Expense,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5605,Executive Salaries and Expenses,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5610,Management Salaries and Expenses,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5615,General Administrative Salaries and Expenses,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5620,Office Supplies and Expenses,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5625,Administrative Expense Transferred/Credit,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5630,Outside Services Employed,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5635,Property Insurance,True,,Insurance expenses for property and equipment.
+5640,Injuries and Damages,True,,"Expenses for injuries, damages and related claims."
+5645,OMERS Pensions and Benefits,True,,Expenses related to employee pension and other post-employment benefit plans.
+5646,Employee Pensions and OPEB,True,,Expenses related to employee pension and other post-employment benefit plans.
+5647,Employee Sick Leave,True,,Expense associated with employee sick leave benefits.
+5650,Franchise Requirements,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5655,Regulatory Expenses,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5660,General Advertising Expenses,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5665,Miscellaneous General Expenses,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5670,Rent,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5672,Lease Payment Expense,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5675,Maintenance of General Plant,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5680,Electrical Safety Authority Fees,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5681,Special Purpose Charge Expense,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5685,Independent Market Operator Fees and Penalties,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5695,OM&A Contra,True,,Operating and maintenance expenses incurred in the course of utility operations.
+5705,"Depreciation Expense - Property Plant, and Equipment",True,,"Depreciation expense for property plant, and equipment."
+5710,Amortization of Limited Term Electric Plant,True,,Amortization expense related to amortization of limited term electric plant.
+5715,Amortization of Intangible Assets,True,,Amortization expense related to amortization of intangible assets.
+5720,Amortization of Electric Plant Acquisition Adjustments,True,,Amortization expense related to amortization of electric plant acquisition adjustments.
+5725,Miscellaneous Depreciation,True,,Depreciation expense for miscellaneous depreciation.
+5730,Amortization of Unrecovered Plant and Regulatory Study Costs,True,,Amortization expense related to amortization of unrecovered plant and regulatory study costs.
+5740,Amortization of Deferred Charges,True,,Amortization expense related to amortization of deferred charges.
+6005,Interest on Long Term Debt,True,,Interest expense incurred on borrowing or lease obligations.
+6010,Amortization of Debt Discount and Expense,True,,Amortization expense related to amortization of debt discount and expense.
+6015,Amortization of Premium on Debt/Credit,True,,Amortization expense related to amortization of premium on debt/credit.
+6020,Amortization of Loss on Reacquired Debt,True,,Amortization expense related to amortization of loss on reacquired debt.
+6025,Amortization of Gain on Reacquired Debt--Credit,True,,Amortization expense related to credit.
+6030,Interest on Debt to Associated Companies,True,,Interest expense incurred on borrowing or lease obligations.
+6035,Other Interest Expense,True,,Interest expense incurred on borrowing or lease obligations.
+6040,Allowance For Borrowing Costs Applied to CWIP - Credit,True,,Operating and maintenance expenses incurred in the course of utility operations.
+6042,Allowance For Other Borrowing Costs Applied to CWIP - Credit,True,,Operating and maintenance expenses incurred in the course of utility operations.
+6045,Interest Expense on Finance Capital Lease Obligations,True,,Interest expense incurred on borrowing or lease obligations.
+6105,Taxes Other Than Income Taxes,True,,"Revenue generated from the provision of goods, services or other activities."
+6110,Income Taxes,True,,"Revenue generated from the provision of goods, services or other activities."
+6115,Provision for Deferred Taxes - Income Statement,True,,"Revenue generated from the provision of goods, services or other activities."
+6205,Donations,True,,Operating and maintenance expenses incurred in the course of utility operations.
+6210,Life Insurance,True,,Operating and maintenance expenses incurred in the course of utility operations.
+6215,Penalties,True,,Operating and maintenance expenses incurred in the course of utility operations.
+6225,Other Deductions,True,,Operating and maintenance expenses incurred in the course of utility operations.
+6305,Unusual Income,True,,"Revenue generated from the provision of goods, services or other activities."
+6310,Unusual Deductions,True,,Operating and maintenance expenses incurred in the course of utility operations.
+6315,"Income Taxes, Unusual Items",True,,"Revenue generated from the provision of goods, services or other activities."
+6405,Discontinued Operations - Income/ Gains,True,,"Revenue generated from the provision of goods, services or other activities."
+6410,Discontinued Operations - Deductions/ Losses,True,,Operating and maintenance expenses incurred in the course of utility operations.
+6415,"Income Taxes, Discontinued Operations",True,,"Revenue generated from the provision of goods, services or other activities."
+7005,Available-for-Sale Financial Asset or Cash Flow Hedge - Other Comprehensive Income,True,,Cash on hand and cash equivalents available for general operations.
+7010,Pension Actuarial Gains or Losses or Remeasurement Adjustment - Other Comprehensive Income,True,,"Revenue generated from the provision of goods, services or other activities."
+7020,Current Taxes - Other Comprehensive Income,True,,Rental income from property or equipment leased to others.
+7025,Deferred Taxes - Other Comprehensive Income,True,,"Revenue generated from the provision of goods, services or other activities."
+7030,Miscellaneous - Other Comprehensive Income,True,,"Revenue generated from the provision of goods, services or other activities."
