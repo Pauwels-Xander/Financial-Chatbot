@@ -373,6 +373,39 @@ class TextToSQLGenerator:
                     f"FROM {self._quote_identifier(table.name)}{where_clause};"
                 )
 
+        # Generic metric fallback for schemas with columns like amount/balance/value/etc.
+        generic_metric_keywords = [
+            "amount",
+            "balance",
+            "value",
+            "total",
+            "net",
+            "income",
+            "profit",
+            "revenue",
+            "cash",
+        ]
+        table, column = self._find_metric_column(schema, generic_metric_keywords)
+        if table and column:
+            return self._build_finance_query(
+                table=table,
+                metric_column=column,
+                question_lower=lowered,
+                year_filter=year_filter,
+            )
+
+        # Last-resort: return a small sample from the first table to keep the pipeline flowing.
+        if schema:
+            fallback_table = schema[0]
+            if not fallback_table.columns:
+                raise PicardValidationError("Schema contains a table without columns.")
+            sample_cols = fallback_table.columns[:3]
+            select_list = ", ".join(self._quote_identifier(col) for col in sample_cols)
+            return (
+                f"SELECT {select_list} FROM {self._quote_identifier(fallback_table.name)} "
+                "LIMIT 25;"
+            )
+
         raise PicardValidationError("Unable to generate valid SQL for the given question.")
 
     @staticmethod
@@ -425,36 +458,41 @@ class TextToSQLGenerator:
     ) -> str:
         year_col = self._find_column_in_table(table, ["year"])
         company_col = self._find_column_in_table(table, ["company"])
-        needs_agg = any(word in question_lower for word in ("total", "sum", "aggregate"))
+        needs_agg_keywords = any(word in question_lower for word in ("total", "sum", "aggregate"))
+
+        group_by_parts: list[str] = []
+        if year_col:
+            group_by_parts.append(self._quote_identifier(year_col))
+        if company_col:
+            group_by_parts.append(self._quote_identifier(company_col))
+
+        use_grouping = bool(group_by_parts)
+        use_aggregation = needs_agg_keywords or use_grouping
 
         metric_expr = (
             f"SUM({self._quote_identifier(metric_column)})"
-            if needs_agg
+            if use_aggregation
             else self._quote_identifier(metric_column)
         )
-        select_parts: list[str] = []
-        group_by_parts: list[str] = []
+        metric_alias = self._normalize_name(metric_column)
 
+        select_parts: list[str] = []
         if year_col:
             select_parts.append(self._quote_identifier(year_col))
-            group_by_parts.append(self._quote_identifier(year_col))
         if company_col:
             select_parts.append(self._quote_identifier(company_col))
-            group_by_parts.append(self._quote_identifier(company_col))
-
-        metric_alias = self._normalize_name(metric_column)
         select_parts.append(f"{metric_expr} AS {metric_alias}")
 
         sql = f"SELECT {', '.join(select_parts)} FROM {self._quote_identifier(table.name)}"
+
         where_clauses: list[str] = []
         if year_filter and year_col:
             where_clauses.append(f"{self._quote_identifier(year_col)} = {year_filter}")
         if where_clauses:
             sql += " WHERE " + " AND ".join(where_clauses)
 
-        if needs_agg and group_by_parts:
+        if use_grouping:
             sql += " GROUP BY " + ", ".join(group_by_parts)
-        if group_by_parts:
             sql += " ORDER BY " + ", ".join(group_by_parts)
 
         return sql + ";"
