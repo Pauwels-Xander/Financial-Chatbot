@@ -11,6 +11,7 @@ from typing import List, Tuple, Optional, Dict, Any
 import json
 from pathlib import Path
 import numpy as np
+import sys
 from sentence_transformers import SentenceTransformer
 from .vector_db import VectorDB
 

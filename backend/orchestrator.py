@@ -215,6 +215,7 @@ class PipelineOrchestrator:
                 self._log_experiment(result)
 
         except Exception as exc:
+            print("Something went wrong:", exc)
             result.errors.append(f"Pipeline error: {str(exc)}")
             result.answer = f"I encountered an error processing your query: {str(exc)}"
             result.runtime_seconds = perf_counter() - start_time
@@ -307,12 +308,10 @@ class PipelineOrchestrator:
             result.warnings.append(f"Entity linking warning: {str(exc)}")
             return None
 
-    def _generate_sql(
-        self, query: str, result: PipelineResult
-    ) -> tuple[Optional[str], Optional[str]]:
+    def _generate_sql(self, query: str, result: PipelineResult) -> tuple[Optional[str], Optional[str]]:
         """Generate SQL with PICARD validation."""
         try:
-            # Introspect schema from database
+            #Introspect schema from database
             tables = introspect_duckdb_schema(self.database_path)
             if not tables:
                 result.errors.append("No tables found in database")
@@ -320,6 +319,7 @@ class PipelineOrchestrator:
 
             # Generate SQL with validation
             validator = PicardValidator(tables)
+        
             generated_sql = self.text_to_sql_generator.generate_sql_with_validation(
                 query, tables, validator
             )

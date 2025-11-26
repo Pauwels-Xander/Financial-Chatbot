@@ -26,6 +26,13 @@ import duckdb
 import sqlglot
 from sqlglot import exp
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+import sys
+from pathlib import Path
+
+ROOT_DIR = Path(__file__).resolve().parent.parent  # project root
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
 
 from backend.utils.experiment_logger import ExperimentLogger
 
@@ -572,4 +579,3 @@ __all__ = [
     "TextToSQLGenerator",
     "run_toy_example",
 ]
-

@@ -1,0 +1,300 @@
+
+================================================================================
+QUESTION:        What was the total revenue in 2023?
+ANSWER:          For 2023, year was $2.02K.
+ABS MATCH:       False
+REL ERROR:       0.9999724021497771
+SQL VALIDITY:    validated
+LATENCY:         13.6329 sec
+--------------------------------------------------------------------------------
+CORRECT SQL:
+SELECT Cash_and_Cash_Equivalents_USofA_1005-1070 FROM balance_sheet WHERE Current_Company_Name = 'Alectra Utilities Corporation' AND Year = 2015;
+--------------------------------------------------------------------------------
+GENERATED SQL:
+SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2023 GROUP BY year ORDER BY year;
+================================================================================
+
+================================================================================
+QUESTION:        How much cash did the company have on hand in 2015?
+ANSWER:          For 2015, year was $2.02K.
+ABS MATCH:       False
+REL ERROR:       0.9999721901592624
+SQL VALIDITY:    validated
+LATENCY:         9.0788 sec
+--------------------------------------------------------------------------------
+CORRECT SQL:
+SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1005';
+--------------------------------------------------------------------------------
+GENERATED SQL:
+SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2015 GROUP BY year ORDER BY year;
+================================================================================
+
+================================================================================
+QUESTION:        What was the balance of Customer Accounts Receivable in 2015?
+ANSWER:          For 2015, year was $2.02K.
+ABS MATCH:       False
+REL ERROR:       0.9999908610638025
+SQL VALIDITY:    validated
+LATENCY:         8.2851 sec
+--------------------------------------------------------------------------------
+CORRECT SQL:
+SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1100';
+--------------------------------------------------------------------------------
+GENERATED SQL:
+SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2015 GROUP BY year ORDER BY year;
+================================================================================
+
+================================================================================
+QUESTION:        Can you provide the RSVA - Wholesale Market Service Charge total for 2015?
+ANSWER:          For 2015, year was $2.02K.
+ABS MATCH:       False
+REL ERROR:       1.000031263802581
+SQL VALIDITY:    validated
+LATENCY:         8.6472 sec
+--------------------------------------------------------------------------------
+CORRECT SQL:
+SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1580';
+--------------------------------------------------------------------------------
+GENERATED SQL:
+SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2015 GROUP BY year ORDER BY year;
+================================================================================
+
+================================================================================
+QUESTION:        How much was allocated to the CBDR class B - Principal sub-account in 2015?
+ANSWER:          For 2015, year was $2.02K.
+ABS MATCH:       False
+REL ERROR:       0.9996826842227571
+SQL VALIDITY:    validated
+LATENCY:         7.5008 sec
+--------------------------------------------------------------------------------
+CORRECT SQL:
+SELECT Sub-Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1580' AND Account_Description LIKE '%CBDR class B - Principal%';
+--------------------------------------------------------------------------------
+GENERATED SQL:
+SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2015 GROUP BY year ORDER BY year;
+================================================================================
+
+================================================================================
+QUESTION:        What was the Land account balance in 2015?
+ANSWER:          For 2015, year was $2.02K.
+ABS MATCH:       False
+REL ERROR:       0.9999454965960074
+SQL VALIDITY:    validated
+LATENCY:         9.0470 sec
+--------------------------------------------------------------------------------
+CORRECT SQL:
+SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1805';
+--------------------------------------------------------------------------------
+GENERATED SQL:
+SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2015 GROUP BY year ORDER BY year;
+================================================================================
+
+================================================================================
+QUESTION:        How much Power Revenue was recognized in 2020?
+ANSWER:          For 2020, year was $2.02K.
+ABS MATCH:       False
+REL ERROR:       0.9999993947854731
+SQL VALIDITY:    validated
+LATENCY:         8.1927 sec
+--------------------------------------------------------------------------------
+CORRECT SQL:
+SELECT Power_Revenue_USofA_4006-4076 FROM income_statement WHERE Year = 2020;
+--------------------------------------------------------------------------------
+GENERATED SQL:
+SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2020 GROUP BY year ORDER BY year;
+================================================================================
+
+================================================================================
+QUESTION:        What was the Net Income in 2021?
+ANSWER:          For 2021, year was $2.02K.
+ABS MATCH:       False
+REL ERROR:       0.999544970886411
+SQL VALIDITY:    validated
+LATENCY:         7.7145 sec
+--------------------------------------------------------------------------------
+CORRECT SQL:
+SELECT Net_Income_Total FROM income_statement WHERE Year = 2021;
+--------------------------------------------------------------------------------
+GENERATED SQL:
+SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2021 GROUP BY year ORDER BY year;
+================================================================================
+
+================================================================================
+QUESTION:        Could you tell me the Depreciation and Amortization expense for 2022?
+ANSWER:          For 2022, year was $2.02K.
+ABS MATCH:       False
+REL ERROR:       1.0011118371594718
+SQL VALIDITY:    validated
+LATENCY:         8.4926 sec
+--------------------------------------------------------------------------------
+CORRECT SQL:
+SELECT Depreciation_and_Amortization_Expense_USofA_5705-5740 FROM income_statement WHERE Year = 2022;
+--------------------------------------------------------------------------------
+GENERATED SQL:
+SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2022 GROUP BY year ORDER BY year;
+================================================================================
+
+================================================================================
+QUESTION:        Provide the Comprehensive Income Loss Total for 2023.
+ANSWER:          For 2023, year was $2.02K.
+ABS MATCH:       False
+REL ERROR:       0.9994430496979722
+SQL VALIDITY:    validated
+LATENCY:         8.9291 sec
+--------------------------------------------------------------------------------
+CORRECT SQL:
+SELECT Comprehensive_Income_Loss_Total FROM income_statement WHERE Year = 2023;
+--------------------------------------------------------------------------------
+GENERATED SQL:
+SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2023 GROUP BY year ORDER BY year;
+================================================================================
+
+================================================================================
+QUESTION:        How much did the company spend on Cost of Power and Related Costs in 2024?
+ANSWER:          For 2024, year was $2.02K.
+ABS MATCH:       False
+REL ERROR:       1.0000006325727877
+SQL VALIDITY:    validated
+LATENCY:         9.3906 sec
+--------------------------------------------------------------------------------
+CORRECT SQL:
+SELECT Cost_of_Power_and_Related_Costs_USofA_4705-4751 FROM income_statement WHERE Year = 2024;
+--------------------------------------------------------------------------------
+GENERATED SQL:
+SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2024 GROUP BY year ORDER BY year;
+================================================================================
+
+================================================================================
+QUESTION:        What was the balance of Account 1010 (Cash Advances and Working Funds) in 2015?
+ANSWER:          For 1010, 2015, year was $2.02K.
+ABS MATCH:       False
+REL ERROR:       0.7002967359050445
+SQL VALIDITY:    validated
+LATENCY:         7.8723 sec
+--------------------------------------------------------------------------------
+CORRECT SQL:
+SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1010';
+--------------------------------------------------------------------------------
+GENERATED SQL:
+SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2015 GROUP BY year ORDER BY year;
+================================================================================
+
+================================================================================
+QUESTION:        How much was in Account 1020 (Interest Special Deposits) in 2015?
+ANSWER:          For 1020, 2015, year was $2.02K.
+ABS MATCH:       False
+REL ERROR:       None
+SQL VALIDITY:    validated
+LATENCY:         8.3608 sec
+--------------------------------------------------------------------------------
+CORRECT SQL:
+SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1020';
+--------------------------------------------------------------------------------
+GENERATED SQL:
+SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2015 GROUP BY year ORDER BY year;
+================================================================================
+
+================================================================================
+QUESTION:        Give me the balance for Account 1030 (Dividend Special Deposits) in 2015.
+ANSWER:          For 1030, 2015, year was $2.02K.
+ABS MATCH:       False
+REL ERROR:       None
+SQL VALIDITY:    validated
+LATENCY:         8.1701 sec
+--------------------------------------------------------------------------------
+CORRECT SQL:
+SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1030';
+--------------------------------------------------------------------------------
+GENERATED SQL:
+SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2015 GROUP BY year ORDER BY year;
+================================================================================
+
+================================================================================
+QUESTION:        What is the Control Account balance for Account 1040 (Short-Term Investments) in 2015?
+ANSWER:          For 1040, 2015, year was $2.02K.
+ABS MATCH:       False
+REL ERROR:       None
+SQL VALIDITY:    validated
+LATENCY:         7.5935 sec
+--------------------------------------------------------------------------------
+CORRECT SQL:
+SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1040';
+--------------------------------------------------------------------------------
+GENERATED SQL:
+SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2015 GROUP BY year ORDER BY year;
+================================================================================
+
+================================================================================
+QUESTION:        How much was recorded under Account 1050 (Accounts Payable) in 2015?
+ANSWER:          For 1050, 2015, year was $2.02K.
+ABS MATCH:       False
+REL ERROR:       None
+SQL VALIDITY:    validated
+LATENCY:         8.6134 sec
+--------------------------------------------------------------------------------
+CORRECT SQL:
+SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1050';
+--------------------------------------------------------------------------------
+GENERATED SQL:
+SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2015 GROUP BY year ORDER BY year;
+================================================================================
+
+================================================================================
+QUESTION:        What is the recorded balance for Account 1060 (Accrued Liabilities) in 2015?
+ANSWER:          For 1060, 2015, year was $2.02K.
+ABS MATCH:       False
+REL ERROR:       None
+SQL VALIDITY:    validated
+LATENCY:         8.6176 sec
+--------------------------------------------------------------------------------
+CORRECT SQL:
+SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1060';
+--------------------------------------------------------------------------------
+GENERATED SQL:
+SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2015 GROUP BY year ORDER BY year;
+================================================================================
+
+================================================================================
+QUESTION:        How much was in Account 1070 (Other Current Assets) in 2015?
+ANSWER:          For 1070, 2015, year was $2.02K.
+ABS MATCH:       False
+REL ERROR:       None
+SQL VALIDITY:    validated
+LATENCY:         9.6002 sec
+--------------------------------------------------------------------------------
+CORRECT SQL:
+SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1070';
+--------------------------------------------------------------------------------
+GENERATED SQL:
+SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2015 GROUP BY year ORDER BY year;
+================================================================================
+
+================================================================================
+QUESTION:        Provide the balance for Account 1080 (Regulatory Assets) in 2015.
+ANSWER:          For 1080, 2015, year was $2.02K.
+ABS MATCH:       False
+REL ERROR:       None
+SQL VALIDITY:    validated
+LATENCY:         9.6075 sec
+--------------------------------------------------------------------------------
+CORRECT SQL:
+SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1080';
+--------------------------------------------------------------------------------
+GENERATED SQL:
+SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2015 GROUP BY year ORDER BY year;
+================================================================================
+
+================================================================================
+QUESTION:        What was the balance of Account 1090 (Prepaid Expenses) in 2015?
+ANSWER:          For 1090, 2015, year was $2.02K.
+ABS MATCH:       False
+REL ERROR:       None
+SQL VALIDITY:    validated
+LATENCY:         10.0646 sec
+--------------------------------------------------------------------------------
+CORRECT SQL:
+SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1090';
+--------------------------------------------------------------------------------
+GENERATED SQL:
+SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2015 GROUP BY year ORDER BY year;
+================================================================================

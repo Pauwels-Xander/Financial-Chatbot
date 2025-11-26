@@ -8,6 +8,7 @@ through the complete pipeline and returns structured results.
 from __future__ import annotations
 
 import os
+import sys
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Dict, Any, Optional
@@ -16,10 +17,14 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
+ROOT_DIR = Path(__file__).resolve().parent.parent  # project root
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
 from backend.orchestrator import PipelineOrchestrator, PipelineResult
 
 # Default database path
-DEFAULT_DB_PATH = os.getenv("DUCKDB_PATH", "data/db/trial_balance.duckdb")
+DEFAULT_DB_PATH = os.getenv("DUCKDB_PATH", ROOT_DIR / "data/db/trial_balance.duckdb")
 
 # Global orchestrator instance (lazy-loaded)
 _orchestrator: Optional[PipelineOrchestrator] = None
@@ -173,6 +178,7 @@ async def ask_query(request: QueryRequest) -> QueryResponse:
         )
         
     except Exception as e:
+        print(e)
         raise HTTPException(
             status_code=500,
             detail=f"Error processing query: {str(e)}",

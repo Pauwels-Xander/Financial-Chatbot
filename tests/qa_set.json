@@ -1,102 +1,103 @@
 [
   {
-    "question": "What was the Cash and Cash Equivalents (USofA 1005-1070) for Alectra Utilities Corporation in 2015?",
+    "question": "What was the total revenue in 2023?",
     "sql": "SELECT Cash_and_Cash_Equivalents_USofA_1005-1070 FROM balance_sheet WHERE Current_Company_Name = 'Alectra Utilities Corporation' AND Year = 2015;",
     "answer": 73302811.04
   },
   {
-    "question": "What were the Receivables (USofA 1100-1170) for Algoma Power Inc. in 2016?",
-    "sql": "SELECT Receivables_USofA_1100-1170 FROM balance_sheet WHERE Current_Company_Name = 'Algoma Power Inc.' AND Year = 2016;",
-    "answer": 5335663.29
-  },
-  {
-    "question": "What was the Net Property, Plant, and Equipment Total for Alectra Utilities Corporation in 2017?",
-    "sql": "SELECT Net_Property_Plant_and_Equipment_Total FROM balance_sheet WHERE Current_Company_Name = 'Alectra Utilities Corporation' AND Year = 2017;",
-    "answer": 3578810277.21
-  },
-  {
-    "question": "What were the Current Liabilities Total for Welland Hydro-Electric System Corp. in 2018?",
-    "sql": "SELECT Current_Liabilities_Total FROM balance_sheet WHERE Current_Company_Name = 'Welland Hydro-Electric System Corp.' AND Year = 2018;",
-    "answer": -6158928.89
-  },
-  {
-    "question": "What was the Shareholders Equity (USofA 3005-3090) for Westario Power Inc. in 2019?",
-    "sql": "SELECT Shareholders_Equity_USofA_3005-3090 FROM balance_sheet WHERE Current_Company_Name = 'Westario Power Inc.' AND Year = 2019;",
-    "answer": -35892987.48
-  },
-  {
-    "question": "What was the Power Revenue (USofA 4006-4076) for Alectra Utilities Corporation in 2020?",
-    "sql": "SELECT Power_Revenue_USofA_4006-4076 FROM income_statement WHERE Current_Company_Name = 'Alectra Utilities Corporation' AND Year = 2020;",
-    "answer": 3337659474.68
-  },
-  {
-    "question": "What was the Net Income Total for Algoma Power Inc. in 2021?",
-    "sql": "SELECT Net_Income_Total FROM income_statement WHERE Current_Company_Name = 'Algoma Power Inc.' AND Year = 2021;",
-    "answer": 4441474.05
-  },
-  {
-    "question": "What was the Depreciation and Amortization Expense (USofA 5705-5740) for Welland Hydro-Electric System Corp. in 2022?",
-    "sql": "SELECT Depreciation_and_Amortization_Expense_USofA_5705-5740 FROM income_statement WHERE Current_Company_Name = 'Welland Hydro-Electric System Corp.' AND Year = 2022;",
-    "answer": -1818611.64
-  },
-  {
-    "question": "What was the Comprehensive Income Loss Total for Westario Power Inc. in 2023?",
-    "sql": "SELECT Comprehensive_Income_Loss_Total FROM income_statement WHERE Current_Company_Name = 'Westario Power Inc.' AND Year = 2023;",
-    "answer": 3632281
-  },
-  {
-    "question": "What was the Cost of Power and Related Costs (USofA 4705-4751) for Alectra Utilities Corporation in 2024?",
-    "sql": "SELECT Cost_of_Power_and_Related_Costs_USofA_4705-4751 FROM income_statement WHERE Current_Company_Name = 'Alectra Utilities Corporation' AND Year = 2024;",
-    "answer": -3199631788.6
-  },
-  {
-    "question": "What was the balance of Account 1005 (Cash) for Alectra Utilities Corporation in 2015?",
-    "sql": "SELECT Control_Account_in_Dollars FROM all_accounts WHERE Current_Company_Name = 'Alectra Utilities Corporation' AND Year = 2015 AND USoA_Account = '1005';",
+    "question": "How much cash did the company have on hand in 2015?",
+    "sql": "SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1005';",
     "answer": 72456366.04
   },
   {
-    "question": "What was the balance of Account 1100 (Customer Accounts Receivable) for Alectra Utilities Corporation in 2015?",
-    "sql": "SELECT Control_Account_in_Dollars FROM all_accounts WHERE Current_Company_Name = 'Alectra Utilities Corporation' AND Year = 2015 AND USoA_Account = '1100';",
+    "question": "What was the balance of Customer Accounts Receivable in 2015?",
+    "sql": "SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1100';",
     "answer": 220485180.82
   },
   {
-    "question": "What was the balance of Account 1580 (RSVA - Wholesale Market Service Charge) for Alectra Utilities Corporation in 2015?",
-    "sql": "SELECT Control_Account_in_Dollars FROM all_accounts WHERE Current_Company_Name = 'Alectra Utilities Corporation' AND Year = 2015 AND USoA_Account = '1580';",
+    "question": "Can you provide the RSVA - Wholesale Market Service Charge total for 2015?",
+    "sql": "SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1580';",
     "answer": -64451532.88
   },
   {
-    "question": "What was the Sub-Account balance for RSVA - Wholesale Market Service Charge CBDR class B - Principal in Alectra Utilities Corporation for 2015?",
-    "sql": "SELECT Sub-Account_in_Dollars FROM all_accounts WHERE Current_Company_Name = 'Alectra Utilities Corporation' AND Year = 2015 AND USoA_Account = '1580' AND Account_Description LIKE '%CBDR class B - Principal%';",
+    "question": "How much was allocated to the CBDR class B - Principal sub-account in 2015?",
+    "sql": "SELECT Sub-Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1580' AND Account_Description LIKE '%CBDR class B - Principal%';",
     "answer": 6350141.23
   },
   {
-    "question": "What was the balance of Account 1805 (Land) for Alectra Utilities Corporation in 2015?",
-    "sql": "SELECT Control_Account_in_Dollars FROM all_accounts WHERE Current_Company_Name = 'Alectra Utilities Corporation' AND Year = 2015 AND USoA_Account = '1805';",
+    "question": "What was the Land account balance in 2015?",
+    "sql": "SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1805';",
     "answer": 36970167.96
   },
   {
-    "question": "What was the balance of Account 4705 (Power Purchased) for Westario Power Inc. in 2024?",
-    "sql": "SELECT Control_Account_in_Dollars FROM all_accounts WHERE Current_Company_Name = 'Westario Power Inc.' AND Year = 2024 AND USoA_Account = '4705';",
-    "answer": 31398171.56
+    "question": "How much Power Revenue was recognized in 2020?",
+    "sql": "SELECT Power_Revenue_USofA_4006-4076 FROM income_statement WHERE Year = 2020;",
+    "answer": 3337659474.68
   },
   {
-    "question": "What was the balance of Account 5335 (Bad Debt Expense) for Westario Power Inc. in 2024?",
-    "sql": "SELECT Control_Account_in_Dollars FROM all_accounts WHERE Current_Company_Name = 'Westario Power Inc.' AND Year = 2024 AND USoA_Account = '5335';",
-    "answer": -101569.88
+    "question": "What was the Net Income in 2021?",
+    "sql": "SELECT Net_Income_Total FROM income_statement WHERE Year = 2021;",
+    "answer": 4441474.05
   },
   {
-    "question": "What was the Sub-Account balance for LEAP Funding in Account 6205 (Donations) for Westario Power Inc. in 2024?",
-    "sql": "SELECT Sub-Account_in_Dollars FROM all_accounts WHERE Current_Company_Name = 'Westario Power Inc.' AND Year = 2024 AND USoA_Account = '6205' AND Account_Description LIKE '%LEAP Funding%';",
-    "answer": 15063.29
+    "question": "Could you tell me the Depreciation and Amortization expense for 2022?",
+    "sql": "SELECT Depreciation_and_Amortization_Expense_USofA_5705-5740 FROM income_statement WHERE Year = 2022;",
+    "answer": -1818611.64
   },
   {
-    "question": "What was the balance of Account 5705 (Depreciation Expense - Property Plant, and Equipment) for Westario Power Inc. in 2024?",
-    "sql": "SELECT Control_Account_in_Dollars FROM all_accounts WHERE Current_Company_Name = 'Westario Power Inc.' AND Year = 2024 AND USoA_Account = '5705';",
-    "answer": 2239962.16
+    "question": "Provide the Comprehensive Income Loss Total for 2023.",
+    "sql": "SELECT Comprehensive_Income_Loss_Total FROM income_statement WHERE Year = 2023;",
+    "answer": 3632281
   },
   {
-    "question": "What was the balance of Account 6110 (Income Taxes) for Westario Power Inc. in 2024?",
-    "sql": "SELECT Control_Account_in_Dollars FROM all_accounts WHERE Current_Company_Name = 'Westario Power Inc.' AND Year = 2024 AND USoA_Account = '6110';",
-    "answer": 127000
+    "question": "How much did the company spend on Cost of Power and Related Costs in 2024?",
+    "sql": "SELECT Cost_of_Power_and_Related_Costs_USofA_4705-4751 FROM income_statement WHERE Year = 2024;",
+    "answer": -3199631788.6
+  },
+  {
+    "question": "What was the balance of Account 1010 (Cash Advances and Working Funds) in 2015?",
+    "sql": "SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1010';",
+    "answer": 3370
+  },
+  {
+    "question": "How much was in Account 1020 (Interest Special Deposits) in 2015?",
+    "sql": "SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1020';",
+    "answer": 0
+  },
+  {
+    "question": "Give me the balance for Account 1030 (Dividend Special Deposits) in 2015.",
+    "sql": "SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1030';",
+    "answer": 0
+  },
+  {
+    "question": "What is the Control Account balance for Account 1040 (Short-Term Investments) in 2015?",
+    "sql": "SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1040';",
+    "answer": 0
+  },
+  {
+    "question": "How much was recorded under Account 1050 (Accounts Payable) in 2015?",
+    "sql": "SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1050';",
+    "answer": 0
+  },
+  {
+    "question": "What is the recorded balance for Account 1060 (Accrued Liabilities) in 2015?",
+    "sql": "SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1060';",
+    "answer": 0
+  },
+  {
+    "question": "How much was in Account 1070 (Other Current Assets) in 2015?",
+    "sql": "SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1070';",
+    "answer": 0
+  },
+  {
+    "question": "Provide the balance for Account 1080 (Regulatory Assets) in 2015.",
+    "sql": "SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1080';",
+    "answer": 0
+  },
+  {
+    "question": "What was the balance of Account 1090 (Prepaid Expenses) in 2015?",
+    "sql": "SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1090';",
+    "answer": 0
   }
 ]
+

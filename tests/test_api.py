@@ -90,7 +90,7 @@ def test_health_endpoint(client):
 
 
 def test_ask_endpoint_valid_query(client):
-    """Test the /ask endpoint with a valid query."""
+    """Test the  endpoint with a valid query."""
     response = client.post(
         "/ask",
         json={"query": "List total amount for each product"}
