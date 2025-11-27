@@ -54,3 +54,34 @@ def test_run_toy_example_creates_results(tmp_path):
     with (tmp_path / "runs.csv").open() as handle:
         assert len(handle.readlines()) >= 2
 
+
+def test_build_finance_query_groups_by_account_when_requested():
+    generator = TextToSQLGenerator.__new__(TextToSQLGenerator)  # bypass model loading
+    table = TableSchema(name="account_balances", columns=["year", "account_id", "amount"])
+
+    sql = generator._build_finance_query(
+        table=table,
+        metric_column="amount",
+        question_lower="total amount by account for 2022",
+        year_filter="2022",
+    )
+
+    assert "account_id" in sql
+    assert "GROUP BY" in sql and "account_id" in sql.split("GROUP BY")[1]
+    assert "WHERE" in sql and "2022" in sql
+
+
+def test_build_finance_query_handles_top_n():
+    generator = TextToSQLGenerator.__new__(TextToSQLGenerator)  # bypass model loading
+    table = TableSchema(name="account_balances", columns=["year", "account_id", "amount"])
+
+    sql = generator._build_finance_query(
+        table=table,
+        metric_column="amount",
+        question_lower="top 5 accounts with the highest balances",
+        year_filter=None,
+    )
+
+    assert "ORDER BY amount DESC" in sql
+    assert "LIMIT 5" in sql
+

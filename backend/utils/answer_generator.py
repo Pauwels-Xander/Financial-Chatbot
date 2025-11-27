@@ -130,25 +130,27 @@ class AnswerGenerator:
             else:
                 text_values[key] = str(value) if value is not None else "N/A"
 
+        primary_numeric_key = self._select_numeric_field([result]) if numeric_values else None
+        if primary_numeric_key is None and numeric_values:
+            primary_numeric_key = next(iter(numeric_values.keys()))
+
         # Build answer based on query type
         query_lower = query.lower()
         
         # Time-based queries
         if metadata and metadata.get("time_expressions"):
             time_info = ", ".join(metadata["time_expressions"])
-            if numeric_values:
-                value_key = list(numeric_values.keys())[0]
-                value = numeric_values[value_key]
+            if primary_numeric_key and primary_numeric_key in numeric_values:
+                value = numeric_values[primary_numeric_key]
                 formatted_value = self._format_number(value)
-                return f"For {time_info}, {value_key.replace('_', ' ')} was {formatted_value}."
+                return f"For {time_info}, {primary_numeric_key.replace('_', ' ')} was {formatted_value}."
 
         # Total/Sum queries
         if "total" in query_lower or "sum" in query_lower:
-            if numeric_values:
-                value_key = list(numeric_values.keys())[0]
-                value = numeric_values[value_key]
+            if primary_numeric_key and primary_numeric_key in numeric_values:
+                value = numeric_values[primary_numeric_key]
                 formatted_value = self._format_number(value)
-                return f"The total {value_key.replace('_', ' ')} is {formatted_value}."
+                return f"The total {primary_numeric_key.replace('_', ' ')} is {formatted_value}."
 
         # Count queries
         if "how many" in query_lower or "count" in query_lower:

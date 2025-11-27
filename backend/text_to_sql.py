@@ -458,13 +458,19 @@ class TextToSQLGenerator:
     ) -> str:
         year_col = self._find_column_in_table(table, ["year"])
         company_col = self._find_column_in_table(table, ["company"])
+        account_col = self._find_column_in_table(table, ["account"])
+
         needs_agg_keywords = any(word in question_lower for word in ("total", "sum", "aggregate"))
+        needs_account_group = "account" in question_lower and account_col is not None
+        top_n = self._extract_top_k(question_lower)
 
         group_by_parts: list[str] = []
         if year_col:
             group_by_parts.append(self._quote_identifier(year_col))
         if company_col:
             group_by_parts.append(self._quote_identifier(company_col))
+        if needs_account_group:
+            group_by_parts.append(self._quote_identifier(account_col))
 
         use_grouping = bool(group_by_parts)
         use_aggregation = needs_agg_keywords or use_grouping
@@ -481,6 +487,8 @@ class TextToSQLGenerator:
             select_parts.append(self._quote_identifier(year_col))
         if company_col:
             select_parts.append(self._quote_identifier(company_col))
+        if needs_account_group:
+            select_parts.append(self._quote_identifier(account_col))
         select_parts.append(f"{metric_expr} AS {metric_alias}")
 
         sql = f"SELECT {', '.join(select_parts)} FROM {self._quote_identifier(table.name)}"
@@ -493,9 +501,32 @@ class TextToSQLGenerator:
 
         if use_grouping:
             sql += " GROUP BY " + ", ".join(group_by_parts)
+
+        if top_n:
+            sql += f" ORDER BY {metric_alias} DESC"
+            sql += f" LIMIT {top_n}"
+        elif use_grouping:
             sql += " ORDER BY " + ", ".join(group_by_parts)
 
         return sql + ";"
+
+    @staticmethod
+    def _extract_top_k(question_lower: str) -> Optional[int]:
+        """
+        Extract requested top-k intent from the question. When users say "top"/"highest"/"largest"
+        without a number, default to 5. Returns None when no ranking intent is present.
+        """
+        match = re.search(r"\btop\s+(\d+)", question_lower)
+        if match:
+            try:
+                return int(match.group(1))
+            except ValueError:
+                return None
+
+        if "top" in question_lower or "highest" in question_lower or "largest" in question_lower:
+            return 5
+
+        return None
 
 
 def run_toy_example(logger: Optional[ExperimentLogger] = None) -> Dict[str, object]:
