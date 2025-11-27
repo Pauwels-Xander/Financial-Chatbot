@@ -106,3 +106,18 @@ def test_prompt_raises_on_non_dict_rows():
 
     with pytest.raises(ValueError):
         generator.build_numeric_llm_prompt("Invalid rows", rows)
+
+
+def test_generate_prefers_metric_over_period_in_time_answer():
+    generator = AnswerGenerator()
+    rows = [{"year": 2023, "amount": -228025728.0}]
+
+    answer = generator.generate(
+        "What was the total amount in 2023?",
+        rows,
+        query_metadata={"time_expressions": ["2023"]},
+    )
+
+    # Should headline the metric, not the period column
+    assert "amount was" in answer
+    assert "year was" not in answer
