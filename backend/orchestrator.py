@@ -18,8 +18,13 @@ from __future__ import annotations
 
 import json
 import re
+import copy
+import json
+import logging
+import re
 from dataclasses import dataclass, asdict
 from datetime import date
+from functools import lru_cache
 from pathlib import Path
 from time import perf_counter
 from typing import Any, Dict, List, Optional, Sequence
@@ -48,6 +53,8 @@ from backend.utils.answer_generator import AnswerGenerator
 from backend.utils.experiment_logger import ExperimentLogger
 from backend.utils.query_router import QueryRouter, QueryClassification
 from backend.utils.time_parser import parse_time_expression, TimeParseError, TimeParseResult
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -128,6 +135,8 @@ class PipelineOrchestrator:
         self._answer_generator = answer_generator or AnswerGenerator()
         self._query_router = query_router or QueryRouter()
         self._experiment_logger = experiment_logger or ExperimentLogger()
+        self._cache_enabled = True
+        self._cached_compute = lru_cache(maxsize=32)(self._compute_result_uncached)
 
     @property
     def entity_linker(self) -> Optional[AccountLinker]:
@@ -164,6 +173,34 @@ class PipelineOrchestrator:
             PipelineResult with all intermediate outputs and final answer
         """
         start_time = perf_counter()
+        compute_fn = self._cached_compute if self._cache_enabled else self._compute_result_uncached
+        cache_info_before = compute_fn.cache_info() if self._cache_enabled else None
+        base_result = compute_fn(query)
+        cache_info_after = compute_fn.cache_info() if self._cache_enabled else None
+        cache_hit = False
+        if self._cache_enabled and cache_info_before and cache_info_after:
+            cache_hit = cache_info_after.hits > cache_info_before.hits
+
+        result = copy.deepcopy(base_result)
+        result.runtime_seconds = perf_counter() - start_time
+
+        if cache_hit:
+            message = "Cache hit: returning cached response."
+            logger.info("%s query=%r", message, query)
+            result.warnings.append(message)
+        elif log_experiment:
+            self._log_experiment(result)
+
+        return result
+
+    def clear_cache(self) -> None:
+        """Clear the cached pipeline responses."""
+        if self._cache_enabled:
+            self._cached_compute.cache_clear()
+
+    def _compute_result_uncached(self, query: str) -> PipelineResult:
+        """Run the full pipeline without caching or experiment logging."""
+        start_time = perf_counter()
         result = PipelineResult(query=query, database_path=self.database_path)
 
         try:
@@ -188,8 +225,6 @@ class PipelineOrchestrator:
                 result.errors.append("Failed to generate valid SQL")
                 result.answer = "I couldn't generate a valid SQL query for your question. Please try rephrasing."
                 result.runtime_seconds = perf_counter() - start_time
-                if log_experiment:
-                    self._log_experiment(result)
                 return result
 
             # Step 5: SQL execution
@@ -200,27 +235,18 @@ class PipelineOrchestrator:
                 result.errors.append(sql_result.get("error", "SQL execution failed"))
                 result.answer = "I couldn't execute the query. Please try rephrasing or check the database."
                 result.runtime_seconds = perf_counter() - start_time
-                if log_experiment:
-                    self._log_experiment(result)
                 return result
 
             # Step 6: LLM answer generation
             answer = self._generate_answer(query, sql_result, result)
             result.answer = answer
 
-            result.runtime_seconds = perf_counter() - start_time
-
-            # Step 7: Log experiment
-            if log_experiment:
-                self._log_experiment(result)
-
         except Exception as exc:
-            print("Something went wrong:", exc)
+            logger.exception("Pipeline error for query %r", query)
             result.errors.append(f"Pipeline error: {str(exc)}")
             result.answer = f"I encountered an error processing your query: {str(exc)}"
+        finally:
             result.runtime_seconds = perf_counter() - start_time
-            if log_experiment:
-                self._log_experiment(result)
 
         return result
 
