@@ -65,3 +65,8 @@ def test_run_enforces_timeout(db_path, monkeypatch):
 
     slow_executor.close()
 
+
+def test_run_invalid_sql_syntax_raises(executor):
+    with pytest.raises(SQLExecutionError):
+        executor.run("SELECT")
+
