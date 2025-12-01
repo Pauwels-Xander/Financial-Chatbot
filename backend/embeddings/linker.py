@@ -13,7 +13,11 @@ from pathlib import Path
 import numpy as np
 import sys
 from sentence_transformers import SentenceTransformer
-from .vector_db import VectorDB
+
+ROOT_DIR = Path(__file__).resolve().parent.parent.parent  # project root
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+from backend.embeddings.vector_db import VectorDB
 
 
 class AccountLinker:

@@ -1,300 +1,300 @@
 
 ================================================================================
-QUESTION:        What was the total revenue in 2023?
-ANSWER:          For 2023, year was $2.02K.
+QUESTION:        How high was the amount of acount 1180 in 2015?
+ANSWER:          For 1180, 2015, amount was $-64.55M.
 ABS MATCH:       False
-REL ERROR:       0.9999724021497771
+REL ERROR:       0.9998828616928153
 SQL VALIDITY:    validated
-LATENCY:         13.6329 sec
+LATENCY:         13.7685 sec
 --------------------------------------------------------------------------------
 CORRECT SQL:
-SELECT Cash_and_Cash_Equivalents_USofA_1005-1070 FROM balance_sheet WHERE Current_Company_Name = 'Alectra Utilities Corporation' AND Year = 2015;
---------------------------------------------------------------------------------
-GENERATED SQL:
-SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2023 GROUP BY year ORDER BY year;
-================================================================================
-
-================================================================================
-QUESTION:        How much cash did the company have on hand in 2015?
-ANSWER:          For 2015, year was $2.02K.
-ABS MATCH:       False
-REL ERROR:       0.9999721901592624
-SQL VALIDITY:    validated
-LATENCY:         9.0788 sec
---------------------------------------------------------------------------------
-CORRECT SQL:
-SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1005';
+SELECT amount FROM account_balances WHERE year = 2015 AND account_id = '1180' AND sub_num = 0;
 --------------------------------------------------------------------------------
 GENERATED SQL:
 SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2015 GROUP BY year ORDER BY year;
 ================================================================================
 
 ================================================================================
-QUESTION:        What was the balance of Customer Accounts Receivable in 2015?
-ANSWER:          For 2015, year was $2.02K.
+QUESTION:        What was the amount for the Merchandise account in 2016?
+ANSWER:          I found 455 results. The total amount is $-104.80M.
 ABS MATCH:       False
-REL ERROR:       0.9999908610638025
+REL ERROR:       None
 SQL VALIDITY:    validated
-LATENCY:         8.2851 sec
+LATENCY:         4.1751 sec
 --------------------------------------------------------------------------------
 CORRECT SQL:
-SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1100';
+SELECT amount FROM account_balances WHERE year = 2016 AND account_id = '1340' AND sub_num = 0;
 --------------------------------------------------------------------------------
 GENERATED SQL:
-SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2015 GROUP BY year ORDER BY year;
+SELECT year, account_id, SUM(amount) AS amount FROM account_balances WHERE year = 2016 GROUP BY year, account_id ORDER BY year, account_id;
 ================================================================================
 
 ================================================================================
-QUESTION:        Can you provide the RSVA - Wholesale Market Service Charge total for 2015?
-ANSWER:          For 2015, year was $2.02K.
+QUESTION:        How much the balance for account 1535 in 2017?
+ANSWER:          I found 455 results. The total amount is $-132.84M.
 ABS MATCH:       False
-REL ERROR:       1.000031263802581
+REL ERROR:       0.9998368741209577
 SQL VALIDITY:    validated
-LATENCY:         8.6472 sec
+LATENCY:         2.1431 sec
 --------------------------------------------------------------------------------
 CORRECT SQL:
-SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1580';
+SELECT amount FROM account_balances WHERE year = 2017 AND account_id = '1535' AND sub_num = 0;
 --------------------------------------------------------------------------------
 GENERATED SQL:
-SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2015 GROUP BY year ORDER BY year;
+SELECT year, account_id, SUM(amount) AS amount FROM account_balances WHERE year = 2017 GROUP BY year, account_id ORDER BY year, account_id;
 ================================================================================
 
 ================================================================================
-QUESTION:        How much was allocated to the CBDR class B - Principal sub-account in 2015?
-ANSWER:          For 2015, year was $2.02K.
+QUESTION:        What was the retail settlement variance account capturing differences between billed and actual settlement amounts for global adjustment in 2018?
+ANSWER:          I found 456 results. The total amount is $-266.43M.
 ABS MATCH:       False
-REL ERROR:       0.9996826842227571
+REL ERROR:       1.0000450899202769
 SQL VALIDITY:    validated
-LATENCY:         7.5008 sec
+LATENCY:         3.8381 sec
 --------------------------------------------------------------------------------
 CORRECT SQL:
-SELECT Sub-Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1580' AND Account_Description LIKE '%CBDR class B - Principal%';
+SELECT amount FROM account_balances WHERE year = 2018 AND account_id = '1589' AND sub_num = 0;
 --------------------------------------------------------------------------------
 GENERATED SQL:
-SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2015 GROUP BY year ORDER BY year;
+SELECT year, account_id, SUM(amount) AS amount FROM account_balances WHERE year = 2018 GROUP BY year, account_id ORDER BY year, account_id;
 ================================================================================
 
 ================================================================================
-QUESTION:        What was the Land account balance in 2015?
-ANSWER:          For 2015, year was $2.02K.
+QUESTION:        How high the balance for RSVA - Global Adjustment in 2019?
+ANSWER:          For 2019, amount was $-193.73M.
 ABS MATCH:       False
-REL ERROR:       0.9999454965960074
+REL ERROR:       None
 SQL VALIDITY:    validated
-LATENCY:         9.0470 sec
+LATENCY:         1.8623 sec
 --------------------------------------------------------------------------------
 CORRECT SQL:
-SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1805';
+SELECT amount FROM account_balances WHERE year = 2019 AND account_id = '1635' AND sub_num = 0;
 --------------------------------------------------------------------------------
 GENERATED SQL:
-SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2015 GROUP BY year ORDER BY year;
+SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2019 GROUP BY year ORDER BY year;
 ================================================================================
 
 ================================================================================
-QUESTION:        How much Power Revenue was recognized in 2020?
-ANSWER:          For 2020, year was $2.02K.
+QUESTION:        What were the balance of account 1665 in 2020?
+ANSWER:          I found 458 results. The total amount is $-179.58M.
 ABS MATCH:       False
-REL ERROR:       0.9999993947854731
+REL ERROR:       None
 SQL VALIDITY:    validated
-LATENCY:         8.1927 sec
+LATENCY:         5.0313 sec
 --------------------------------------------------------------------------------
 CORRECT SQL:
-SELECT Power_Revenue_USofA_4006-4076 FROM income_statement WHERE Year = 2020;
+SELECT amount FROM account_balances WHERE year = 2020 AND account_id = '1665' AND sub_num = 0;
 --------------------------------------------------------------------------------
 GENERATED SQL:
-SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2020 GROUP BY year ORDER BY year;
+SELECT year, account_id, SUM(amount) AS amount FROM account_balances WHERE year = 2020 GROUP BY year, account_id ORDER BY year, account_id;
 ================================================================================
 
 ================================================================================
-QUESTION:        What was the Net Income in 2021?
-ANSWER:          For 2021, year was $2.02K.
+QUESTION:        How much was the cost of utility plant and equipment used in operations for accessory electric equipment in 2021?
+ANSWER:          For 2021, amount was $-216.64M.
 ABS MATCH:       False
-REL ERROR:       0.999544970886411
+REL ERROR:       None
 SQL VALIDITY:    validated
-LATENCY:         7.7145 sec
+LATENCY:         2.8251 sec
 --------------------------------------------------------------------------------
 CORRECT SQL:
-SELECT Net_Income_Total FROM income_statement WHERE Year = 2021;
+SELECT amount FROM account_balances WHERE year = 2021 AND account_id = '1680' AND sub_num = 0;
 --------------------------------------------------------------------------------
 GENERATED SQL:
 SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2021 GROUP BY year ORDER BY year;
 ================================================================================
 
 ================================================================================
-QUESTION:        Could you tell me the Depreciation and Amortization expense for 2022?
-ANSWER:          For 2022, year was $2.02K.
+QUESTION:        What were the costs for Overhead Conductors and Devices in 2022?
+ANSWER:          For 2022, amount was $-252.43M.
 ABS MATCH:       False
-REL ERROR:       1.0011118371594718
+REL ERROR:       None
 SQL VALIDITY:    validated
-LATENCY:         8.4926 sec
+LATENCY:         1.3808 sec
 --------------------------------------------------------------------------------
 CORRECT SQL:
-SELECT Depreciation_and_Amortization_Expense_USofA_5705-5740 FROM income_statement WHERE Year = 2022;
+SELECT amount FROM account_balances WHERE year = 2022 AND account_id = '1730' AND sub_num = 0;
 --------------------------------------------------------------------------------
 GENERATED SQL:
 SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2022 GROUP BY year ORDER BY year;
 ================================================================================
 
 ================================================================================
-QUESTION:        Provide the Comprehensive Income Loss Total for 2023.
-ANSWER:          For 2023, year was $2.02K.
+QUESTION:        What was the balance on account 1855 in 2023?
+ANSWER:          I found 460 results. The total amount is $-228.03M.
 ABS MATCH:       False
-REL ERROR:       0.9994430496979722
+REL ERROR:       0.9999988847922217
 SQL VALIDITY:    validated
-LATENCY:         8.9291 sec
+LATENCY:         1.0323 sec
 --------------------------------------------------------------------------------
 CORRECT SQL:
-SELECT Comprehensive_Income_Loss_Total FROM income_statement WHERE Year = 2023;
+SELECT amount FROM account_balances WHERE year = 2023 AND account_id = '1855' AND sub_num = 0;
 --------------------------------------------------------------------------------
 GENERATED SQL:
-SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2023 GROUP BY year ORDER BY year;
+SELECT year, account_id, SUM(amount) AS amount FROM account_balances WHERE year = 2023 GROUP BY year, account_id ORDER BY year, account_id;
 ================================================================================
 
 ================================================================================
-QUESTION:        How much did the company spend on Cost of Power and Related Costs in 2024?
-ANSWER:          For 2024, year was $2.02K.
+QUESTION:        What was the income or expense related to renting property or equipment for sentinel lighting rental units in 2024?
+ANSWER:          For 2024, amount was $-227.63M.
 ABS MATCH:       False
-REL ERROR:       1.0000006325727877
+REL ERROR:       None
 SQL VALIDITY:    validated
-LATENCY:         9.3906 sec
+LATENCY:         2.1627 sec
 --------------------------------------------------------------------------------
 CORRECT SQL:
-SELECT Cost_of_Power_and_Related_Costs_USofA_4705-4751 FROM income_statement WHERE Year = 2024;
+SELECT amount FROM account_balances WHERE year = 2024 AND account_id = '1985' AND sub_num = 0;
 --------------------------------------------------------------------------------
 GENERATED SQL:
 SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2024 GROUP BY year ORDER BY year;
 ================================================================================
 
 ================================================================================
-QUESTION:        What was the balance of Account 1010 (Cash Advances and Working Funds) in 2015?
-ANSWER:          For 1010, 2015, year was $2.02K.
+QUESTION:        Which account had the highest balance in 2018?
+ANSWER:          I found 5 results. The total amount is $4614.02M.
 ABS MATCH:       False
-REL ERROR:       0.7002967359050445
+REL ERROR:       0.9989373007438895
 SQL VALIDITY:    validated
-LATENCY:         7.8723 sec
+LATENCY:         2.9846 sec
 --------------------------------------------------------------------------------
 CORRECT SQL:
-SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1010';
+SELECT account_id FROM account_balances WHERE year = 2018 AND sub_num = 0 ORDER BY amount DESC LIMIT 1;
 --------------------------------------------------------------------------------
 GENERATED SQL:
-SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2015 GROUP BY year ORDER BY year;
+SELECT year, account_id, SUM(amount) AS amount FROM account_balances WHERE year = 2018 GROUP BY year, account_id ORDER BY amount DESC LIMIT 5;
 ================================================================================
 
 ================================================================================
-QUESTION:        How much was in Account 1020 (Interest Special Deposits) in 2015?
-ANSWER:          For 1020, 2015, year was $2.02K.
+QUESTION:        How many accounts had positive balances in 2019?
+ANSWER:          I found 456 results. The total amount is $-193.73M.
 ABS MATCH:       False
-REL ERROR:       None
+REL ERROR:       2.4545454545454546
 SQL VALIDITY:    validated
-LATENCY:         8.3608 sec
+LATENCY:         0.8885 sec
 --------------------------------------------------------------------------------
 CORRECT SQL:
-SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1020';
+SELECT COUNT(*) FROM account_balances WHERE year = 2019 AND amount > 0 AND sub_num = 0;
 --------------------------------------------------------------------------------
 GENERATED SQL:
-SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2015 GROUP BY year ORDER BY year;
+SELECT year, account_id, SUM(amount) AS amount FROM account_balances WHERE year = 2019 GROUP BY year, account_id ORDER BY year, account_id;
 ================================================================================
 
 ================================================================================
-QUESTION:        Give me the balance for Account 1030 (Dividend Special Deposits) in 2015.
-ANSWER:          For 1030, 2015, year was $2.02K.
+QUESTION:        What was the balance difference for account 1589 between 2018 and 2019?
+ANSWER:          I found 456 results. The total amount is $-266.43M.
 ABS MATCH:       False
-REL ERROR:       None
+REL ERROR:       0.9999800303792236
 SQL VALIDITY:    validated
-LATENCY:         8.1701 sec
+LATENCY:         2.8045 sec
 --------------------------------------------------------------------------------
 CORRECT SQL:
-SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1030';
+SELECT (SELECT amount FROM account_balances WHERE year = 2019 AND account_id = '1589' AND sub_num = 0) - (SELECT amount FROM account_balances WHERE year = 2018 AND account_id = '1589' AND sub_num = 0);
 --------------------------------------------------------------------------------
 GENERATED SQL:
-SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2015 GROUP BY year ORDER BY year;
+SELECT year, account_id, SUM(amount) AS amount FROM account_balances WHERE year = 2018 GROUP BY year, account_id ORDER BY year, account_id;
 ================================================================================
 
 ================================================================================
-QUESTION:        What is the Control Account balance for Account 1040 (Short-Term Investments) in 2015?
-ANSWER:          For 1040, 2015, year was $2.02K.
+QUESTION:        How high was the difference in balance of account 1180 in 2020 compared to the average balance of all accounts that year?
+ANSWER:          I found 458 results. The total amount is $-179.58M.
 ABS MATCH:       False
-REL ERROR:       None
+REL ERROR:       0.9999733329008761
 SQL VALIDITY:    validated
-LATENCY:         7.5935 sec
+LATENCY:         2.7072 sec
 --------------------------------------------------------------------------------
 CORRECT SQL:
-SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1040';
+SELECT (SELECT amount FROM account_balances WHERE year = 2020 AND account_id = '1180' AND sub_num = 0) - (SELECT AVG(amount) FROM account_balances WHERE year = 2020 AND sub_num = 0);
 --------------------------------------------------------------------------------
 GENERATED SQL:
-SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2015 GROUP BY year ORDER BY year;
+SELECT year, account_id, SUM(amount) AS amount FROM account_balances WHERE year = 2020 GROUP BY year, account_id ORDER BY year, account_id;
 ================================================================================
 
 ================================================================================
-QUESTION:        How much was recorded under Account 1050 (Accounts Payable) in 2015?
-ANSWER:          For 1050, 2015, year was $2.02K.
+QUESTION:        What was the second-highest balance in 2021?
+ANSWER:          For 2021, amount was $-216.64M.
 ABS MATCH:       False
-REL ERROR:       None
+REL ERROR:       0.9999978170092504
 SQL VALIDITY:    validated
-LATENCY:         8.6134 sec
+LATENCY:         1.2171 sec
 --------------------------------------------------------------------------------
 CORRECT SQL:
-SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1050';
+SELECT amount FROM account_balances WHERE year = 2021 AND sub_num = 0 ORDER BY amount DESC LIMIT 1 OFFSET 1;
 --------------------------------------------------------------------------------
 GENERATED SQL:
-SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2015 GROUP BY year ORDER BY year;
+SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2021 GROUP BY year ORDER BY amount DESC LIMIT 5;
 ================================================================================
 
 ================================================================================
-QUESTION:        What is the recorded balance for Account 1060 (Accrued Liabilities) in 2015?
-ANSWER:          For 1060, 2015, year was $2.02K.
+QUESTION:        How many accounts had a balance exactly equal to zero in 2023?
+ANSWER:          I found 460 results. The total amount is $-228.03M.
 ABS MATCH:       False
-REL ERROR:       None
+REL ERROR:       0.3813813813813814
 SQL VALIDITY:    validated
-LATENCY:         8.6176 sec
+LATENCY:         1.3194 sec
 --------------------------------------------------------------------------------
 CORRECT SQL:
-SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1060';
+SELECT COUNT(*) FROM account_balances WHERE year = 2023 AND amount = 0 AND sub_num = 0;
 --------------------------------------------------------------------------------
 GENERATED SQL:
-SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2015 GROUP BY year ORDER BY year;
+SELECT year, account_id, SUM(amount) AS amount FROM account_balances WHERE year = 2023 GROUP BY year, account_id ORDER BY year, account_id;
 ================================================================================
 
 ================================================================================
-QUESTION:        How much was in Account 1070 (Other Current Assets) in 2015?
-ANSWER:          For 1070, 2015, year was $2.02K.
+QUESTION:        By how many dollars did account 1855 change from 2022 to 2023?
+ANSWER:          I found 459 results. The total amount is $-252.43M.
 ABS MATCH:       False
-REL ERROR:       None
+REL ERROR:       0.9999798143234394
 SQL VALIDITY:    validated
-LATENCY:         9.6002 sec
+LATENCY:         3.7463 sec
 --------------------------------------------------------------------------------
 CORRECT SQL:
-SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1070';
+SELECT (SELECT amount FROM account_balances WHERE year = 2023 AND account_id = '1855' AND sub_num = 0) - (SELECT amount FROM account_balances WHERE year = 2022 AND account_id = '1855' AND sub_num = 0);
 --------------------------------------------------------------------------------
 GENERATED SQL:
-SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2015 GROUP BY year ORDER BY year;
+SELECT year, account_id, SUM(amount) AS amount FROM account_balances WHERE year = 2022 GROUP BY year, account_id ORDER BY year, account_id;
 ================================================================================
 
 ================================================================================
-QUESTION:        Provide the balance for Account 1080 (Regulatory Assets) in 2015.
-ANSWER:          For 1080, 2015, year was $2.02K.
+QUESTION:        How many accounts had a balance greater than 10 million dollars in 2020?
+ANSWER:          I found 458 results. The total amount is $-179.58M.
 ABS MATCH:       False
-REL ERROR:       None
+REL ERROR:       7.481481481481482
 SQL VALIDITY:    validated
-LATENCY:         9.6075 sec
+LATENCY:         3.9795 sec
 --------------------------------------------------------------------------------
 CORRECT SQL:
-SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1080';
+SELECT COUNT(*) FROM account_balances WHERE year = 2020 AND amount > 10000000 AND sub_num = 0;
 --------------------------------------------------------------------------------
 GENERATED SQL:
-SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2015 GROUP BY year ORDER BY year;
+SELECT year, account_id, SUM(amount) AS amount FROM account_balances WHERE year = 2020 GROUP BY year, account_id ORDER BY year, account_id;
 ================================================================================
 
 ================================================================================
-QUESTION:        What was the balance of Account 1090 (Prepaid Expenses) in 2015?
-ANSWER:          For 1090, 2015, year was $2.02K.
+QUESTION:        What was the balance of account 4068 in 2021?
+ANSWER:          I found 459 results. The total amount is $-216.64M.
 ABS MATCH:       False
-REL ERROR:       None
+REL ERROR:       1.0000033366618777
 SQL VALIDITY:    validated
-LATENCY:         10.0646 sec
+LATENCY:         2.8240 sec
 --------------------------------------------------------------------------------
 CORRECT SQL:
-SELECT Control_Account_in_Dollars FROM all_accounts WHERE Year = 2015 AND USoA_Account = '1090';
+SELECT amount FROM account_balances WHERE year = 2021 AND account_id = '4068' AND sub_num = 0;
 --------------------------------------------------------------------------------
 GENERATED SQL:
-SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2015 GROUP BY year ORDER BY year;
+SELECT year, account_id, SUM(amount) AS amount FROM account_balances WHERE year = 2021 GROUP BY year, account_id ORDER BY year, account_id;
+================================================================================
+
+================================================================================
+QUESTION:        How many accounts had a negative balance in 2022?
+ANSWER:          I found 459 results. The total amount is $-252.43M.
+ABS MATCH:       False
+REL ERROR:       6.779661016949152
+SQL VALIDITY:    validated
+LATENCY:         2.1364 sec
+--------------------------------------------------------------------------------
+CORRECT SQL:
+SELECT COUNT(*) FROM account_balances WHERE year = 2022 AND amount < 0 AND sub_num = 0;
+--------------------------------------------------------------------------------
+GENERATED SQL:
+SELECT year, account_id, SUM(amount) AS amount FROM account_balances WHERE year = 2022 GROUP BY year, account_id ORDER BY year, account_id;
 ================================================================================

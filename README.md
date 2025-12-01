@@ -85,8 +85,8 @@ cd finance-qa-chatbot
 python -m venv .venv
 source .venv/bin/activate  # or .venv\Scripts\activate on Windows
 
-# Install dependencies
-pip install -r requirements.txt
+# Setup project dependencies and environment
+make setup
 ```
 
 *(Ensure DuckDB, FAISS/Chroma, and FastAPI dependencies are included in `requirements.txt`.)*
@@ -95,15 +95,11 @@ pip install -r requirements.txt
 ## **5. Quick Start**
 
 ```bash
-# 1. Start backend API
-cd backend
-uvicorn main:app --reload
 
-# 2. Run frontend (Streamlit)
-cd ../frontend
-streamlit run app.py
+# 1. Start both backend and frontend at once
+make start
 
-# 3. Ask a question!
+# 2. Ask a question!
 # → "What was the total revenue in 2022?"
 # → "How did profit change between 2021 and 2022?"
 ```
@@ -132,7 +128,7 @@ Outputs:
 | **Xander** | ML Engineer         | Text-to-SQL, embeddings, model tuning |
 | **Anh**    | Data Engineer       | Data ingestion, DuckDB, preprocessing |
 | **Fion**   | Backend Developer   | Pipeline orchestration, FastAPI       |
-| **Joshia** | Research & Frontend | Evaluation, UI, documentation         |
+| **Josijah** | Research & Frontend | Evaluation, UI, documentation         |
 
 
 ## **8. License**

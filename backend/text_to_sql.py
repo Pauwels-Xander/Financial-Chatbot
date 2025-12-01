@@ -341,6 +341,7 @@ class TextToSQLGenerator:
         )
 
     def _fallback_sql(self, question: str, schema: Sequence[TableSchema]) -> str:
+        print("using fallback")
         lowered = question.lower()
         year_filter = self._extract_year(lowered)
 
