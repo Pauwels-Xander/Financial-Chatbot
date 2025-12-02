@@ -98,7 +98,6 @@ slides/
 *.pem
 *.key
 *.crt
-*.json
 apikeys/
 secrets/
 openai_api_key.txt

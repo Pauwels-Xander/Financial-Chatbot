@@ -1,0 +1,102 @@
+[
+  {
+    "question": "What was the 2019 balance for account 5110 Maintenance of Buildings and Fixtures - Distribution Stations?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2019 AND account_id = 5110 AND sub_num = 0;",
+    "answer": 378944.00
+  },
+  {
+    "question": "How much did Alectra spend on Maintenance of Overhead Conductors and Devices in 2019?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2019 AND account_id = 5125 AND sub_num = 0;",
+    "answer": 17766.00
+  },
+  {
+    "question": "What was the 2019 balance for Overhead Distribution Lines and Feeders - Right of Way?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2019 AND account_id = 5135 AND sub_num = 0;",
+    "answer": 5027365.00
+  },
+  {
+    "question": "What was the 2019 balance for Maintenance of Underground Conduit?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2019 AND account_id = 5145 AND sub_num = 0;",
+    "answer": 594865.00
+  },
+  {
+    "question": "What was the 2019 balance for Maintenance of Underground Conductors and Devices?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2019 AND account_id = 5150 AND sub_num = 0;",
+    "answer": 512173.00
+  },
+  {
+    "question": "What was the 2019 balance for Maintenance of Line Transformers?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2019 AND account_id = 5160 AND sub_num = 0;",
+    "answer": 403410.00
+  },
+  {
+    "question": "What was the 2020 balance for account 5110 Maintenance of Buildings and Fixtures - Distribution Stations?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2020 AND account_id = 5110 AND sub_num = 0;",
+    "answer": 1336245.00
+  },
+  {
+    "question": "How much was Overhead Distribution Lines and Feeders - Right of Way in 2020?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2020 AND account_id = 5135 AND sub_num = 0;",
+    "answer": 5098817.00
+  },
+  {
+    "question": "What was the Maintenance of Underground Conduit balance in 2020?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2020 AND account_id = 5145 AND sub_num = 0;",
+    "answer": 0.00
+  },
+  {
+    "question": "How much was Maintenance of Underground Conductors and Devices in 2020?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2020 AND account_id = 5150 AND sub_num = 0;",
+    "answer": 1038433.00
+  },
+  {
+    "question": "What was the Underground Conduit account 1735 balance in 2017?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2017 AND account_id = 1735 AND sub_num = 0;",
+    "answer": 0.00
+  },
+  {
+    "question": "What was the Underground Conduit account 1840 balance in 2017?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2017 AND account_id = 1840 AND sub_num = 0;",
+    "answer": 392769325.00
+  },
+  {
+    "question": "What was the Maintenance of Underground Conduit account 5145 balance in 2017?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2017 AND account_id = 5145 AND sub_num = 0;",
+    "answer": 235931.00
+  },
+  {
+    "question": "What was the Underground Conduit account 1735 balance in 2016?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2016 AND account_id = 1735 AND sub_num = 0;",
+    "answer": 0.00
+  },
+  {
+    "question": "What was the Underground Conduit account 1840 balance in 2016?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2016 AND account_id = 1840 AND sub_num = 0;",
+    "answer": 356973501.00
+  },
+  {
+    "question": "What was the Maintenance of Underground Conduit account 5145 balance in 2016?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2016 AND account_id = 5145 AND sub_num = 0;",
+    "answer": 314409.00
+  },
+  {
+    "question": "What was the Underground Conduit account 1735 balance in 2015?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2015 AND account_id = 1735 AND sub_num = 0;",
+    "answer": 0.00
+  },
+  {
+    "question": "What was the Underground Conduit account 1840 balance in 2015?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2015 AND account_id = 1840 AND sub_num = 0;",
+    "answer": 324866617.00
+  },
+  {
+    "question": "What was the Maintenance of Underground Conduit account 5145 balance in 2015?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2015 AND account_id = 5145 AND sub_num = 0;",
+    "answer": 317883.00
+  },
+  {
+    "question": "What was the balance for Overhead Conductors and Devices in 2016?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2016 AND account_id = 1730 AND sub_num = 0;",
+    "answer": 0.00
+  }
+]

@@ -1,0 +1,112 @@
+[
+  {
+    "question": "What was the 2022 balance for account 6010 Amortization of Debt Discount and Expense?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2022 AND account_id = 6010 AND sub_num = 0;",
+    "answer": 0.00
+  },
+  {
+    "question": "What was the 2022 balance for account 6030 Interest on Debt to Associated Companies?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2022 AND account_id = 6030 AND sub_num = 0;",
+    "answer": 66377072.00
+  },
+  {
+    "question": "How much was Other Interest Expense (account 6035) in 2022?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2022 AND account_id = 6035 AND sub_num = 0;",
+    "answer": 13193923.00
+  },
+  {
+    "question": "What was Allowance For Borrowing Costs Applied to CWIP - Credit (account 6040) in 2022?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2022 AND account_id = 6040 AND sub_num = 0;",
+    "answer": -4088814.00
+  },
+  {
+    "question": "What was Allowance For Other Borrowing Costs Applied to CWIP - Credit (account 6042) in 2022?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2022 AND account_id = 6042 AND sub_num = 0;",
+    "answer": 0.00
+  },
+  {
+    "question": "How much was Interest Expense on Finance Capital Lease Obligations (account 6045) in 2022?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2022 AND account_id = 6045 AND sub_num = 0;",
+    "answer": 941729.00
+  },
+  {
+    "question": "What were Taxes Other Than Income Taxes (account 6105) in 2022?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2022 AND account_id = 6105 AND sub_num = 0;",
+    "answer": 1902924.00
+  },
+  {
+    "question": "What were Income Taxes (account 6110) in 2022?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2022 AND account_id = 6110 AND sub_num = 0;",
+    "answer": 8911118.00
+  },
+  {
+    "question": "What was the Provision for Deferred Taxes - Income Statement (account 6115) in 2022?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2022 AND account_id = 6115 AND sub_num = 0;",
+    "answer": 1483169.00
+  },
+  {
+    "question": "How much did Alectra donate in 2022 (account 6205 Donations)?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2022 AND account_id = 6205 AND sub_num = 0;",
+    "answer": 675886.00
+  },
+  {
+    "question": "What were Miscellaneous Service Revenues (account 4235) in 2023?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2023 AND account_id = 4235 AND sub_num = 0;",
+    "answer": -6259684.00
+  },
+  {
+    "question": "What was the Provision for Rate Refunds (account 4240) in 2023?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2023 AND account_id = 4240 AND sub_num = 0;",
+    "answer": 0.00
+  },
+  {
+    "question": "What was Government and Other Assistance Directly Credited to Income (account 4245) in 2023?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2023 AND account_id = 4245 AND sub_num = 0;",
+    "answer": 0.00
+  },
+  {
+    "question": "What were Regulatory Debits (account 4305) in 2023?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2023 AND account_id = 4305 AND sub_num = 0;",
+    "answer": 12013433.00
+  },
+  {
+    "question": "What were Regulatory Credits (account 4310) in 2023?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2023 AND account_id = 4310 AND sub_num = 0;",
+    "answer": -2506696.00
+  },
+  {
+    "question": "What was the balance for Underground Subtransmission Feeders - Operation (account 5050) in 2023?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2023 AND account_id = 5050 AND sub_num = 0;",
+    "answer": 0.00
+  },
+  {
+    "question": "What was the balance for Underground Distribution Transformers - Operation (account 5055) in 2023?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2023 AND account_id = 5055 AND sub_num = 0;",
+    "answer": 0.00
+  },
+  {
+    "question": "How much was Meter Expense (account 5065) in 2023?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2023 AND account_id = 5065 AND sub_num = 0;",
+    "answer": 2747579.00
+  },
+  {
+    "question": "What was Customer Premises - Operation Labour (account 5070) in 2023?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2023 AND account_id = 5070 AND sub_num = 0;",
+    "answer": 1359374.00
+  },
+  {
+    "question": "What was Customer Premises - Materials and Expenses (account 5075) in 2023?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2023 AND account_id = 5075 AND sub_num = 0;",
+    "answer": 928230.00
+  },
+  {
+    "question": "How much was Miscellaneous Distribution Expense (account 5085) in 2023?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2023 AND account_id = 5085 AND sub_num = 0;",
+    "answer": 656763.00
+  },
+  {
+    "question": "What was the balance for Underground Distribution Lines and Feeders - Rental Paid (account 5090) in 2023?",
+    "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2023 AND account_id = 5090 AND sub_num = 0;",
+    "answer": 0.00
+  }
+]
