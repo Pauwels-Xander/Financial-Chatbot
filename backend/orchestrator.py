@@ -51,6 +51,7 @@ from backend.text_to_sql import (
 )
 from backend.utils.answer_generator import AnswerGenerator
 from backend.utils.experiment_logger import ExperimentLogger
+from backend.utils.hybrid_router import HybridRouter, HybridRouteDecision, build_refusal_message
 from backend.utils.query_router import QueryRouter, QueryClassification
 from backend.utils.time_parser import parse_time_expression, TimeParseError, TimeParseResult
 
@@ -68,6 +69,7 @@ class PipelineResult:
     # Intermediate outputs (for debugging)
     time_parse_result: Optional[Dict[str, Any]] = None
     query_classification: Optional[Dict[str, Any]] = None
+    router_decision: Optional[Dict[str, Any]] = None
     entity_links: Optional[List[Dict[str, Any]]] = None
     generated_sql: Optional[str] = None
     validation_status: Optional[str] = None
@@ -109,6 +111,7 @@ class PipelineOrchestrator:
         text_to_sql_generator: Optional[TextToSQLGenerator] = None,
         answer_generator: Optional[AnswerGenerator] = None,
         query_router: Optional[QueryRouter] = None,
+        hybrid_router: Optional[HybridRouter] = None,
         experiment_logger: Optional[ExperimentLogger] = None,
         base_date: Optional[date] = None,
     ):
@@ -122,6 +125,7 @@ class PipelineOrchestrator:
             text_to_sql_generator: Optional TextToSQLGenerator instance (will create if None)
             answer_generator: Optional AnswerGenerator instance (will create if None)
             query_router: Optional QueryRouter instance (will create if None)
+            hybrid_router: Optional HybridRouter instance (will create if None)
             experiment_logger: Optional ExperimentLogger instance (will create if None)
             base_date: Optional base date for time parsing (defaults to today)
         """
@@ -134,6 +138,7 @@ class PipelineOrchestrator:
         self._text_to_sql_generator = text_to_sql_generator
         self._answer_generator = answer_generator or AnswerGenerator()
         self._query_router = query_router or QueryRouter()
+        self._hybrid_router = hybrid_router or HybridRouter()
         self._experiment_logger = experiment_logger or ExperimentLogger()
         self._cache_enabled = True
         self._cached_compute = lru_cache(maxsize=32)(self._compute_result_uncached)
@@ -204,6 +209,48 @@ class PipelineOrchestrator:
         result = PipelineResult(query=query, database_path=self.database_path)
 
         try:
+            # Step 0: Hybrid router decision (Text-to-SQL, RAG, or refusal)
+            try:
+                router_decision = self._hybrid_router.route(query)
+                result.router_decision = router_decision.to_dict()
+                logger.info(
+                    "Router decision: query=%r, route=%s, confidence=%.3f",
+                    query,
+                    router_decision.route,
+                    router_decision.confidence,
+                )
+            except Exception as exc:
+                logger.warning("Hybrid router failed for query %r: %s", query, exc)
+                router_decision = None
+
+            if router_decision and router_decision.route == "refusal":
+                # Early refusal path with detailed guidance
+                result.answer = build_refusal_message(query, router_decision)
+                logger.info(
+                    "Query refused: query=%r, confidence=%.3f, notes=%s",
+                    query,
+                    router_decision.confidence,
+                    router_decision.notes,
+                )
+                result.runtime_seconds = perf_counter() - start_time
+                return result
+
+            if router_decision and router_decision.route == "rag":
+                # Placeholder RAG path – will be replaced with a real RAG implementation
+                logger.info(
+                    "Query routed to RAG: query=%r, confidence=%.3f, notes=%s",
+                    query,
+                    router_decision.confidence,
+                    router_decision.notes,
+                )
+                result.answer = (
+                    "This question looks conceptual and would normally be answered via "
+                    "a retrieval-augmented (RAG) path, but that component is not yet "
+                    "implemented in this prototype."
+                )
+                result.runtime_seconds = perf_counter() - start_time
+                return result
+
             # Step 1: Time parser
             time_parse_result = self._parse_time_expressions(query, result)
             result.time_parse_result = time_parse_result

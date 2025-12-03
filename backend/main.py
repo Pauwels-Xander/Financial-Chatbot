@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import os
 import sys
+import logging
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Dict, Any, Optional
@@ -16,6 +17,12 @@ from typing import Dict, Any, Optional
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
+
+#Enable logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
 
 ROOT_DIR = Path(__file__).resolve().parent.parent  # project root
 if str(ROOT_DIR) not in sys.path:
@@ -160,6 +167,7 @@ async def ask_query(request: QueryRequest) -> QueryResponse:
         metadata: Dict[str, Any] = {
             "runtime_seconds": result.runtime_seconds,
             "query_classification": result.query_classification,
+            "router_decision": result.router_decision,
             "time_parse_result": result.time_parse_result,
             "entity_links": result.entity_links,
             "validation_status": result.validation_status,
