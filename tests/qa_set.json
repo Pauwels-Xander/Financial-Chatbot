@@ -1,102 +1,47 @@
 [
   {
-    "question": "How high was the amount of acount 1180 in 2015?",
-    "sql": "SELECT amount FROM account_balances WHERE year = 2015 AND account_id = '1180' AND sub_num = 0;",
-    "answer": 10073562.00
+    "question": "What was the top 1 balance in 2018?",
+    "sql": "SELECT amount FROM account_balances WHERE year = 2018 AND sub_num = 0 ORDER BY amount DESC LIMIT 1;",
+    "answer": 1273270664.00
   },
   {
-    "question": "What was the amount for the Merchandise account in 2016?",
-    "sql": "SELECT amount FROM account_balances WHERE year = 2016 AND account_id = '1340' AND sub_num = 0;",
-    "answer": 0.00
+    "question": "What was the amount of the top 3 balances in 2020, pooled together?",
+    "sql": "SELECT SUM(amount) FROM (SELECT amount FROM account_balances WHERE year = 2020 AND sub_num = 0 ORDER BY amount DESC LIMIT 3);",
+    "answer": 3841614324.00
   },
   {
-    "question": "How much the balance for account 1535 in 2017?",
-    "sql": "SELECT amount FROM account_balances WHERE year = 2017 AND account_id = '1535' AND sub_num = 0;",
-    "answer": 2789257.00
+    "question": "What was the top 1 balance in 2019?",
+    "sql": "SELECT amount FROM account_balances WHERE year = 2019 AND sub_num = 0 ORDER BY amount DESC LIMIT 1;",
+    "answer": 1266954522.00
   },
   {
-    "question": "What was the retail settlement variance account capturing differences between billed and actual settlement amounts for global adjustment in 2018?",
-    "sql": "SELECT amount FROM account_balances WHERE year = 2018 AND account_id = '1589' AND sub_num = 0;",
-    "answer": -10113125.00
+    "question": "What was the top 5 balance summed up in 2021?",
+    "sql": "SELECT SUM(amount) FROM (SELECT amount FROM account_balances WHERE year = 2021 AND sub_num = 0 ORDER BY amount DESC LIMIT 5);",
+    "answer": 4691343442.00
   },
   {
-    "question": "How high the balance for RSVA - Global Adjustment in 2019?",
-    "sql": "SELECT amount FROM account_balances WHERE year = 2019 AND account_id = '1635' AND sub_num = 0;",
-    "answer": 0.00
+    "question": "What is the revenue of 2022?",
+    "sql": "SELECT SUM(amount) AS total_revenue FROM account_balances WHERE year = 2018;",
+    "answer": -266431583.00
   },
   {
-    "question": "What were the balance of account 1665 in 2020?",
-    "sql": "SELECT amount FROM account_balances WHERE year = 2020 AND account_id = '1665' AND sub_num = 0;",
-    "answer": 0.00
+    "question": "What is the total revenue of 2019?",
+    "sql": "SELECT SUM(amount) AS total_revenue FROM account_balances WHERE year = 2019;",
+    "answer": -193731489.00 
   },
   {
-    "question": "How much was the cost of utility plant and equipment used in operations for accessory electric equipment in 2021?",
-    "sql": "SELECT amount FROM account_balances WHERE year = 2021 AND account_id = '1680' AND sub_num = 0;",
-    "answer": 0.00
+    "question": "What is the total revenue of 2020?",
+    "sql": "SELECT SUM(amount) AS total_revenue FROM account_balances WHERE year = 2020;",
+    "answer":  -179582906.00
   },
   {
-    "question": "What were the costs for Overhead Conductors and Devices in 2022?",
-    "sql": "SELECT amount FROM account_balances WHERE year = 2022 AND account_id = '1730' AND sub_num = 0;",
-    "answer": 0.00
+    "question": "What is the total revenue of 2021?",
+    "sql": "SELECT SUM(amount) AS total_revenue FROM account_balances WHERE year = 2021;",
+    "answer": -216644052.00
   },
   {
-    "question": "What was the balance on account 1855 in 2023?",
-    "sql": "SELECT amount FROM account_balances WHERE year = 2023 AND account_id = '1855' AND sub_num = 0;",
-    "answer": 412479189.00
-  },
-  {
-    "question": "What was the income or expense related to renting property or equipment for sentinel lighting rental units in 2024?",
-    "sql": "SELECT amount FROM account_balances WHERE year = 2024 AND account_id = '1985' AND sub_num = 0;",
-    "answer": 0.00
-  },
-  {
-    "question": "Which account had the highest balance in 2018?",
-    "sql": "SELECT account_id FROM account_balances WHERE year = 2018 AND sub_num = 0 ORDER BY amount DESC LIMIT 1;",
-    "answer": 4705
-  },
-  {
-    "question": "How many accounts had positive balances in 2019?",
-    "sql": "SELECT COUNT(*) FROM account_balances WHERE year = 2019 AND amount > 0 AND sub_num = 0;",
-    "answer": 132
-  },
-  {
-    "question": "What was the balance difference for account 1589 between 2018 and 2019?",
-    "sql": "SELECT (SELECT amount FROM account_balances WHERE year = 2019 AND account_id = '1589' AND sub_num = 0) - (SELECT amount FROM account_balances WHERE year = 2018 AND account_id = '1589' AND sub_num = 0);",
-    "answer": 22834685.00
-  },
-  {
-    "question": "How high was the difference in balance of account 1180 in 2020 compared to the average balance of all accounts that year?",
-    "sql": "SELECT (SELECT amount FROM account_balances WHERE year = 2020 AND account_id = '1180' AND sub_num = 0) - (SELECT AVG(amount) FROM account_balances WHERE year = 2020 AND sub_num = 0);",
-    "answer": 17174721.4750499
-  },
-  {
-    "question": "What was the second-highest balance in 2021?",
-    "sql": "SELECT amount FROM account_balances WHERE year = 2021 AND sub_num = 0 ORDER BY amount DESC LIMIT 1 OFFSET 1;",
-    "answer": 925794120.00 
-  },
-  {
-    "question": "How many accounts had a balance exactly equal to zero in 2023?",
-    "sql": "SELECT COUNT(*) FROM account_balances WHERE year = 2023 AND amount = 0 AND sub_num = 0;",
-    "answer": 333
-  },
-  {
-    "question": "By how many dollars did account 1855 change from 2022 to 2023?",
-    "sql": "SELECT (SELECT amount FROM account_balances WHERE year = 2023 AND account_id = '1855' AND sub_num = 0) - (SELECT amount FROM account_balances WHERE year = 2022 AND account_id = '1855' AND sub_num = 0);",
-    "answer": 22738896.00
-  },
-  {
-    "question": "How many accounts had a balance greater than 10 million dollars in 2020?",
-    "sql": "SELECT COUNT(*) FROM account_balances WHERE year = 2020 AND amount > 10000000 AND sub_num = 0;",
-    "answer": 54
-  },
-  {
-    "question": "What was the balance of account 4068 in 2021?",
-    "sql": "SELECT amount FROM account_balances WHERE year = 2021 AND account_id = '4068' AND sub_num = 0;",
-    "answer": -137562635.00
-  },
-  {
-    "question": "How many accounts had a negative balance in 2022?",
-    "sql": "SELECT COUNT(*) FROM account_balances WHERE year = 2022 AND amount < 0 AND sub_num = 0;",
-    "answer": 59
+    "question": "What is the total revenue of 2023?",
+    "sql": "SELECT SUM(amount) AS total_revenue FROM account_balances WHERE year = 2023;",
+    "answer": -228025728.00 
   }
 ]

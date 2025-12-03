@@ -250,32 +250,19 @@ class TextToSQLGenerator:
         self.model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
         self._few_shot_examples = [
             (
-                "What was the Underground Conduit account balance in 2017?",
-                "SELECT ab.year, a.account_name, SUM(ab.amount) AS amount FROM account_balances ab JOIN accounts a ON ab.account_id = a.account_id WHERE LOWER(a.account_name) LIKE '%underground conduit%' AND ab.year = 2017 GROUP BY ab.year, a.account_name;",
+                "Show total sales amount per product.",
+                "SELECT product, SUM(amount) AS total_amount FROM sales GROUP BY product;",
             ),
             (
-                "Show total revenue by year.",
-                "SELECT year, SUM(amount) AS revenue FROM account_balances GROUP BY year ORDER BY year;",
-            ),
-            (
-                "What was account_id 1840 amount in 2017?",
-                "SELECT year, account_id, SUM(amount) AS amount FROM account_balances WHERE account_id = 1840 AND year = 2017 GROUP BY year, account_id;",
-            ),
-            (
-                "Top 3 accounts by amount in 2016.",
-                "SELECT a.account_name, ab.account_id, SUM(ab.amount) AS amount FROM account_balances ab JOIN accounts a ON ab.account_id = a.account_id WHERE ab.year = 2016 GROUP BY a.account_name, ab.account_id ORDER BY amount DESC LIMIT 3;",
+                "How many sales records exist?",
+                "SELECT COUNT(*) AS total_rows FROM sales;",
             ),
         ]
 
     def _build_prompt(self, question: str, tables: Sequence[TableSchema]) -> str:
         schema_block = schema_to_prompt_string(tables)
-        guidelines = (
-            "Use WHERE clauses for time filters and account filters; "
-            "when an account_id number is given, filter on account_id; "
-            "when asked for 'top N', ORDER BY the metric DESC and LIMIT N."
-        )
         examples = " ".join(f"Question: {q} | SQL: {a}" for q, a in self._few_shot_examples)
-        return f"{examples} {guidelines} Question: {question} | Schema: {schema_block} | SQL:"
+        return f"{examples} Question: {question} | Schema: {schema_block} | SQL:"
 
     def generate_sql(
         self,

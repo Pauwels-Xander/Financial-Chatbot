@@ -1,300 +1,144 @@
 
 ================================================================================
-QUESTION:        How high was the amount of acount 1180 in 2015?
-ANSWER:          For 1180, 2015, amount was $-64.55M.
+QUESTION:        What was the top 1 balance in 2018?
+ANSWER:          For 2018, amount was $1273.27M.
+Ground truth:    1273270664.0
 ABS MATCH:       False
-REL ERROR:       0.9998828616928153
-SQL VALIDITY:    validated
-LATENCY:         13.7685 sec
+REL ERROR:       5.214916347118479e-07
+SQL VALIDITY:    contextual_primary
+LATENCY:         7.5797 sec
 --------------------------------------------------------------------------------
 CORRECT SQL:
-SELECT amount FROM account_balances WHERE year = 2015 AND account_id = '1180' AND sub_num = 0;
+SELECT amount FROM account_balances WHERE year = 2018 AND sub_num = 0 ORDER BY amount DESC LIMIT 1;
 --------------------------------------------------------------------------------
 GENERATED SQL:
-SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2015 GROUP BY year ORDER BY year;
+SELECT ab.year, ab.account_id, a.account_name, SUM(ab.amount) AS amount FROM account_balances AS ab JOIN accounts AS a ON ab.account_id = a.account_id WHERE ab.year = 2018 GROUP BY ab.year, ab.account_id, a.account_name ORDER BY SUM(ab.amount) DESC, ab.year, a.account_name LIMIT 1;
 ================================================================================
 
 ================================================================================
-QUESTION:        What was the amount for the Merchandise account in 2016?
-ANSWER:          I found 455 results. The total amount is $-104.80M.
+QUESTION:        What was the amount of the top 3 balances in 2020, pooled together?
+ANSWER:          I found 3 results. The total amount is $3841.61M.
+Ground truth:    3841614324.0
 ABS MATCH:       False
+REL ERROR:       1.125568481194574e-06
+SQL VALIDITY:    contextual_primary
+LATENCY:         0.9912 sec
+--------------------------------------------------------------------------------
+CORRECT SQL:
+SELECT SUM(amount) FROM (SELECT amount FROM account_balances WHERE year = 2020 AND sub_num = 0 ORDER BY amount DESC LIMIT 3);
+--------------------------------------------------------------------------------
+GENERATED SQL:
+SELECT ab.year, ab.account_id, a.account_name, SUM(ab.amount) AS amount FROM account_balances AS ab JOIN accounts AS a ON ab.account_id = a.account_id WHERE ab.year = 2020 GROUP BY ab.year, ab.account_id, a.account_name ORDER BY SUM(ab.amount) DESC, ab.year, a.account_name LIMIT 3;
+================================================================================
+
+================================================================================
+QUESTION:        What was the top 1 balance in 2019?
+ANSWER:          For 2019, amount was $1266.95M.
+Ground truth:    1266954522.0
+ABS MATCH:       False
+REL ERROR:       3.5691888867973115e-06
+SQL VALIDITY:    contextual_primary
+LATENCY:         0.0809 sec
+--------------------------------------------------------------------------------
+CORRECT SQL:
+SELECT amount FROM account_balances WHERE year = 2019 AND sub_num = 0 ORDER BY amount DESC LIMIT 1;
+--------------------------------------------------------------------------------
+GENERATED SQL:
+SELECT ab.year, ab.account_id, a.account_name, SUM(ab.amount) AS amount FROM account_balances AS ab JOIN accounts AS a ON ab.account_id = a.account_id WHERE ab.year = 2019 GROUP BY ab.year, ab.account_id, a.account_name ORDER BY SUM(ab.amount) DESC, ab.year, a.account_name LIMIT 1;
+================================================================================
+
+================================================================================
+QUESTION:        What was the top 5 balance summed up in 2021?
+ANSWER:          I found 5 results. The total amount is $4691.34M.
+Ground truth:    4691343442.0
+ABS MATCH:       False
+REL ERROR:       7.336917543032442e-07
+SQL VALIDITY:    contextual_primary
+LATENCY:         1.0035 sec
+--------------------------------------------------------------------------------
+CORRECT SQL:
+SELECT SUM(amount) FROM (SELECT amount FROM account_balances WHERE year = 2021 AND sub_num = 0 ORDER BY amount DESC LIMIT 5);
+--------------------------------------------------------------------------------
+GENERATED SQL:
+SELECT ab.year, ab.account_id, a.account_name, SUM(ab.amount) AS amount FROM account_balances AS ab JOIN accounts AS a ON ab.account_id = a.account_id WHERE ab.year = 2021 GROUP BY ab.year, ab.account_id, a.account_name ORDER BY SUM(ab.amount) DESC, ab.year, a.account_name LIMIT 5;
+================================================================================
+
+================================================================================
+QUESTION:        What is the revenue of 2022?
+ANSWER:          I couldn't find any results for 'What is the revenue of 2022?'.
+Ground truth:    -266431583.0
+ABS MATCH:       None
 REL ERROR:       None
-SQL VALIDITY:    validated
-LATENCY:         4.1751 sec
+SQL VALIDITY:    contextual_primary
+LATENCY:         0.9787 sec
 --------------------------------------------------------------------------------
 CORRECT SQL:
-SELECT amount FROM account_balances WHERE year = 2016 AND account_id = '1340' AND sub_num = 0;
+SELECT SUM(amount) AS total_revenue FROM account_balances WHERE year = 2018;
 --------------------------------------------------------------------------------
 GENERATED SQL:
-SELECT year, account_id, SUM(amount) AS amount FROM account_balances WHERE year = 2016 GROUP BY year, account_id ORDER BY year, account_id;
+SELECT ab.year, ab.account_id, a.account_name, SUM(ab.amount) AS amount FROM account_balances AS ab JOIN accounts AS a ON ab.account_id = a.account_id WHERE ab.account_id IN (6315) AND (LOWER(a.account_name) LIKE '%revenue generated from the provision of goods, services or other activities.%') AND ab.year = 2022 GROUP BY ab.year, ab.account_id, a.account_name ORDER BY ab.year, a.account_name;
 ================================================================================
 
 ================================================================================
-QUESTION:        How much the balance for account 1535 in 2017?
-ANSWER:          I found 455 results. The total amount is $-132.84M.
-ABS MATCH:       False
-REL ERROR:       0.9998368741209577
-SQL VALIDITY:    validated
-LATENCY:         2.1431 sec
---------------------------------------------------------------------------------
-CORRECT SQL:
-SELECT amount FROM account_balances WHERE year = 2017 AND account_id = '1535' AND sub_num = 0;
---------------------------------------------------------------------------------
-GENERATED SQL:
-SELECT year, account_id, SUM(amount) AS amount FROM account_balances WHERE year = 2017 GROUP BY year, account_id ORDER BY year, account_id;
-================================================================================
-
-================================================================================
-QUESTION:        What was the retail settlement variance account capturing differences between billed and actual settlement amounts for global adjustment in 2018?
-ANSWER:          I found 456 results. The total amount is $-266.43M.
-ABS MATCH:       False
-REL ERROR:       1.0000450899202769
-SQL VALIDITY:    validated
-LATENCY:         3.8381 sec
---------------------------------------------------------------------------------
-CORRECT SQL:
-SELECT amount FROM account_balances WHERE year = 2018 AND account_id = '1589' AND sub_num = 0;
---------------------------------------------------------------------------------
-GENERATED SQL:
-SELECT year, account_id, SUM(amount) AS amount FROM account_balances WHERE year = 2018 GROUP BY year, account_id ORDER BY year, account_id;
-================================================================================
-
-================================================================================
-QUESTION:        How high the balance for RSVA - Global Adjustment in 2019?
-ANSWER:          For 2019, amount was $-193.73M.
-ABS MATCH:       False
+QUESTION:        What is the total revenue of 2019?
+ANSWER:          I couldn't find any results for 'What is the total revenue of 2019?'.
+Ground truth:    -193731489.0
+ABS MATCH:       None
 REL ERROR:       None
-SQL VALIDITY:    validated
-LATENCY:         1.8623 sec
+SQL VALIDITY:    contextual_primary
+LATENCY:         0.0692 sec
 --------------------------------------------------------------------------------
 CORRECT SQL:
-SELECT amount FROM account_balances WHERE year = 2019 AND account_id = '1635' AND sub_num = 0;
+SELECT SUM(amount) AS total_revenue FROM account_balances WHERE year = 2019;
 --------------------------------------------------------------------------------
 GENERATED SQL:
-SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2019 GROUP BY year ORDER BY year;
+SELECT ab.year, ab.account_id, a.account_name, SUM(ab.amount) AS amount FROM account_balances AS ab JOIN accounts AS a ON ab.account_id = a.account_id WHERE ab.account_id IN (1120) AND (LOWER(a.account_name) LIKE '%revenue generated from the provision of goods, services or other activities.%') AND ab.year = 2019 GROUP BY ab.year, ab.account_id, a.account_name ORDER BY ab.year, a.account_name;
 ================================================================================
 
 ================================================================================
-QUESTION:        What were the balance of account 1665 in 2020?
-ANSWER:          I found 458 results. The total amount is $-179.58M.
-ABS MATCH:       False
+QUESTION:        What is the total revenue of 2020?
+ANSWER:          I couldn't find any results for 'What is the total revenue of 2020?'.
+Ground truth:    -179582906.0
+ABS MATCH:       None
 REL ERROR:       None
-SQL VALIDITY:    validated
-LATENCY:         5.0313 sec
+SQL VALIDITY:    contextual_primary
+LATENCY:         0.0718 sec
 --------------------------------------------------------------------------------
 CORRECT SQL:
-SELECT amount FROM account_balances WHERE year = 2020 AND account_id = '1665' AND sub_num = 0;
+SELECT SUM(amount) AS total_revenue FROM account_balances WHERE year = 2020;
 --------------------------------------------------------------------------------
 GENERATED SQL:
-SELECT year, account_id, SUM(amount) AS amount FROM account_balances WHERE year = 2020 GROUP BY year, account_id ORDER BY year, account_id;
+SELECT ab.year, ab.account_id, a.account_name, SUM(ab.amount) AS amount FROM account_balances AS ab JOIN accounts AS a ON ab.account_id = a.account_id WHERE ab.account_id IN (1120) AND (LOWER(a.account_name) LIKE '%revenue generated from the provision of goods, services or other activities.%') AND ab.year = 2020 GROUP BY ab.year, ab.account_id, a.account_name ORDER BY ab.year, a.account_name;
 ================================================================================
 
 ================================================================================
-QUESTION:        How much was the cost of utility plant and equipment used in operations for accessory electric equipment in 2021?
-ANSWER:          For 2021, amount was $-216.64M.
-ABS MATCH:       False
+QUESTION:        What is the total revenue of 2021?
+ANSWER:          I couldn't find any results for 'What is the total revenue of 2021?'.
+Ground truth:    -216644052.0
+ABS MATCH:       None
 REL ERROR:       None
-SQL VALIDITY:    validated
-LATENCY:         2.8251 sec
+SQL VALIDITY:    contextual_primary
+LATENCY:         0.0723 sec
 --------------------------------------------------------------------------------
 CORRECT SQL:
-SELECT amount FROM account_balances WHERE year = 2021 AND account_id = '1680' AND sub_num = 0;
+SELECT SUM(amount) AS total_revenue FROM account_balances WHERE year = 2021;
 --------------------------------------------------------------------------------
 GENERATED SQL:
-SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2021 GROUP BY year ORDER BY year;
+SELECT ab.year, ab.account_id, a.account_name, SUM(ab.amount) AS amount FROM account_balances AS ab JOIN accounts AS a ON ab.account_id = a.account_id WHERE ab.account_id IN (1120) AND (LOWER(a.account_name) LIKE '%revenue generated from the provision of goods, services or other activities.%') AND ab.year = 2021 GROUP BY ab.year, ab.account_id, a.account_name ORDER BY ab.year, a.account_name;
 ================================================================================
 
 ================================================================================
-QUESTION:        What were the costs for Overhead Conductors and Devices in 2022?
-ANSWER:          For 2022, amount was $-252.43M.
-ABS MATCH:       False
+QUESTION:        What is the total revenue of 2023?
+ANSWER:          I couldn't find any results for 'What is the total revenue of 2023?'.
+Ground truth:    -228025728.0
+ABS MATCH:       None
 REL ERROR:       None
-SQL VALIDITY:    validated
-LATENCY:         1.3808 sec
+SQL VALIDITY:    contextual_primary
+LATENCY:         0.0704 sec
 --------------------------------------------------------------------------------
 CORRECT SQL:
-SELECT amount FROM account_balances WHERE year = 2022 AND account_id = '1730' AND sub_num = 0;
+SELECT SUM(amount) AS total_revenue FROM account_balances WHERE year = 2023;
 --------------------------------------------------------------------------------
 GENERATED SQL:
-SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2022 GROUP BY year ORDER BY year;
-================================================================================
-
-================================================================================
-QUESTION:        What was the balance on account 1855 in 2023?
-ANSWER:          I found 460 results. The total amount is $-228.03M.
-ABS MATCH:       False
-REL ERROR:       0.9999988847922217
-SQL VALIDITY:    validated
-LATENCY:         1.0323 sec
---------------------------------------------------------------------------------
-CORRECT SQL:
-SELECT amount FROM account_balances WHERE year = 2023 AND account_id = '1855' AND sub_num = 0;
---------------------------------------------------------------------------------
-GENERATED SQL:
-SELECT year, account_id, SUM(amount) AS amount FROM account_balances WHERE year = 2023 GROUP BY year, account_id ORDER BY year, account_id;
-================================================================================
-
-================================================================================
-QUESTION:        What was the income or expense related to renting property or equipment for sentinel lighting rental units in 2024?
-ANSWER:          For 2024, amount was $-227.63M.
-ABS MATCH:       False
-REL ERROR:       None
-SQL VALIDITY:    validated
-LATENCY:         2.1627 sec
---------------------------------------------------------------------------------
-CORRECT SQL:
-SELECT amount FROM account_balances WHERE year = 2024 AND account_id = '1985' AND sub_num = 0;
---------------------------------------------------------------------------------
-GENERATED SQL:
-SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2024 GROUP BY year ORDER BY year;
-================================================================================
-
-================================================================================
-QUESTION:        Which account had the highest balance in 2018?
-ANSWER:          I found 5 results. The total amount is $4614.02M.
-ABS MATCH:       False
-REL ERROR:       0.9989373007438895
-SQL VALIDITY:    validated
-LATENCY:         2.9846 sec
---------------------------------------------------------------------------------
-CORRECT SQL:
-SELECT account_id FROM account_balances WHERE year = 2018 AND sub_num = 0 ORDER BY amount DESC LIMIT 1;
---------------------------------------------------------------------------------
-GENERATED SQL:
-SELECT year, account_id, SUM(amount) AS amount FROM account_balances WHERE year = 2018 GROUP BY year, account_id ORDER BY amount DESC LIMIT 5;
-================================================================================
-
-================================================================================
-QUESTION:        How many accounts had positive balances in 2019?
-ANSWER:          I found 456 results. The total amount is $-193.73M.
-ABS MATCH:       False
-REL ERROR:       2.4545454545454546
-SQL VALIDITY:    validated
-LATENCY:         0.8885 sec
---------------------------------------------------------------------------------
-CORRECT SQL:
-SELECT COUNT(*) FROM account_balances WHERE year = 2019 AND amount > 0 AND sub_num = 0;
---------------------------------------------------------------------------------
-GENERATED SQL:
-SELECT year, account_id, SUM(amount) AS amount FROM account_balances WHERE year = 2019 GROUP BY year, account_id ORDER BY year, account_id;
-================================================================================
-
-================================================================================
-QUESTION:        What was the balance difference for account 1589 between 2018 and 2019?
-ANSWER:          I found 456 results. The total amount is $-266.43M.
-ABS MATCH:       False
-REL ERROR:       0.9999800303792236
-SQL VALIDITY:    validated
-LATENCY:         2.8045 sec
---------------------------------------------------------------------------------
-CORRECT SQL:
-SELECT (SELECT amount FROM account_balances WHERE year = 2019 AND account_id = '1589' AND sub_num = 0) - (SELECT amount FROM account_balances WHERE year = 2018 AND account_id = '1589' AND sub_num = 0);
---------------------------------------------------------------------------------
-GENERATED SQL:
-SELECT year, account_id, SUM(amount) AS amount FROM account_balances WHERE year = 2018 GROUP BY year, account_id ORDER BY year, account_id;
-================================================================================
-
-================================================================================
-QUESTION:        How high was the difference in balance of account 1180 in 2020 compared to the average balance of all accounts that year?
-ANSWER:          I found 458 results. The total amount is $-179.58M.
-ABS MATCH:       False
-REL ERROR:       0.9999733329008761
-SQL VALIDITY:    validated
-LATENCY:         2.7072 sec
---------------------------------------------------------------------------------
-CORRECT SQL:
-SELECT (SELECT amount FROM account_balances WHERE year = 2020 AND account_id = '1180' AND sub_num = 0) - (SELECT AVG(amount) FROM account_balances WHERE year = 2020 AND sub_num = 0);
---------------------------------------------------------------------------------
-GENERATED SQL:
-SELECT year, account_id, SUM(amount) AS amount FROM account_balances WHERE year = 2020 GROUP BY year, account_id ORDER BY year, account_id;
-================================================================================
-
-================================================================================
-QUESTION:        What was the second-highest balance in 2021?
-ANSWER:          For 2021, amount was $-216.64M.
-ABS MATCH:       False
-REL ERROR:       0.9999978170092504
-SQL VALIDITY:    validated
-LATENCY:         1.2171 sec
---------------------------------------------------------------------------------
-CORRECT SQL:
-SELECT amount FROM account_balances WHERE year = 2021 AND sub_num = 0 ORDER BY amount DESC LIMIT 1 OFFSET 1;
---------------------------------------------------------------------------------
-GENERATED SQL:
-SELECT year, SUM(amount) AS amount FROM account_balances WHERE year = 2021 GROUP BY year ORDER BY amount DESC LIMIT 5;
-================================================================================
-
-================================================================================
-QUESTION:        How many accounts had a balance exactly equal to zero in 2023?
-ANSWER:          I found 460 results. The total amount is $-228.03M.
-ABS MATCH:       False
-REL ERROR:       0.3813813813813814
-SQL VALIDITY:    validated
-LATENCY:         1.3194 sec
---------------------------------------------------------------------------------
-CORRECT SQL:
-SELECT COUNT(*) FROM account_balances WHERE year = 2023 AND amount = 0 AND sub_num = 0;
---------------------------------------------------------------------------------
-GENERATED SQL:
-SELECT year, account_id, SUM(amount) AS amount FROM account_balances WHERE year = 2023 GROUP BY year, account_id ORDER BY year, account_id;
-================================================================================
-
-================================================================================
-QUESTION:        By how many dollars did account 1855 change from 2022 to 2023?
-ANSWER:          I found 459 results. The total amount is $-252.43M.
-ABS MATCH:       False
-REL ERROR:       0.9999798143234394
-SQL VALIDITY:    validated
-LATENCY:         3.7463 sec
---------------------------------------------------------------------------------
-CORRECT SQL:
-SELECT (SELECT amount FROM account_balances WHERE year = 2023 AND account_id = '1855' AND sub_num = 0) - (SELECT amount FROM account_balances WHERE year = 2022 AND account_id = '1855' AND sub_num = 0);
---------------------------------------------------------------------------------
-GENERATED SQL:
-SELECT year, account_id, SUM(amount) AS amount FROM account_balances WHERE year = 2022 GROUP BY year, account_id ORDER BY year, account_id;
-================================================================================
-
-================================================================================
-QUESTION:        How many accounts had a balance greater than 10 million dollars in 2020?
-ANSWER:          I found 458 results. The total amount is $-179.58M.
-ABS MATCH:       False
-REL ERROR:       7.481481481481482
-SQL VALIDITY:    validated
-LATENCY:         3.9795 sec
---------------------------------------------------------------------------------
-CORRECT SQL:
-SELECT COUNT(*) FROM account_balances WHERE year = 2020 AND amount > 10000000 AND sub_num = 0;
---------------------------------------------------------------------------------
-GENERATED SQL:
-SELECT year, account_id, SUM(amount) AS amount FROM account_balances WHERE year = 2020 GROUP BY year, account_id ORDER BY year, account_id;
-================================================================================
-
-================================================================================
-QUESTION:        What was the balance of account 4068 in 2021?
-ANSWER:          I found 459 results. The total amount is $-216.64M.
-ABS MATCH:       False
-REL ERROR:       1.0000033366618777
-SQL VALIDITY:    validated
-LATENCY:         2.8240 sec
---------------------------------------------------------------------------------
-CORRECT SQL:
-SELECT amount FROM account_balances WHERE year = 2021 AND account_id = '4068' AND sub_num = 0;
---------------------------------------------------------------------------------
-GENERATED SQL:
-SELECT year, account_id, SUM(amount) AS amount FROM account_balances WHERE year = 2021 GROUP BY year, account_id ORDER BY year, account_id;
-================================================================================
-
-================================================================================
-QUESTION:        How many accounts had a negative balance in 2022?
-ANSWER:          I found 459 results. The total amount is $-252.43M.
-ABS MATCH:       False
-REL ERROR:       6.779661016949152
-SQL VALIDITY:    validated
-LATENCY:         2.1364 sec
---------------------------------------------------------------------------------
-CORRECT SQL:
-SELECT COUNT(*) FROM account_balances WHERE year = 2022 AND amount < 0 AND sub_num = 0;
---------------------------------------------------------------------------------
-GENERATED SQL:
-SELECT year, account_id, SUM(amount) AS amount FROM account_balances WHERE year = 2022 GROUP BY year, account_id ORDER BY year, account_id;
+SELECT ab.year, ab.account_id, a.account_name, SUM(ab.amount) AS amount FROM account_balances AS ab JOIN accounts AS a ON ab.account_id = a.account_id WHERE ab.account_id IN (6315) AND (LOWER(a.account_name) LIKE '%revenue generated from the provision of goods, services or other activities.%') AND ab.year = 2023 GROUP BY ab.year, ab.account_id, a.account_name ORDER BY ab.year, a.account_name;
 ================================================================================

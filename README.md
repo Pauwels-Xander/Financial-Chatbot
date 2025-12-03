@@ -53,7 +53,7 @@ Finance-QA-Chatbot/
 │       ├── settings.yaml
 │       └── roles.yaml
 ├── frontend/
-│   └── app.py                  # Streamlit or React frontend
+│   └── app.py            g      # Streamlit or React frontend
 ├── data/
 │   └── (ignored via .gitignore)
 ├── tests/
@@ -110,7 +110,7 @@ make start
 Run the evaluation harness on the QA dataset:
 
 ```bash
-python tests/eval_harness.py
+python frontend/evaluate_pipeline.py
 ```
 
 Outputs:

@@ -98,5 +98,59 @@
     "question": "What was the balance for Overhead Conductors and Devices in 2016?",
     "sql": "SELECT SUM(amount) AS amount FROM account_balances WHERE year = 2016 AND account_id = 1730 AND sub_num = 0;",
     "answer": 0.00
+  }, 
+
+
+
+
+  {
+    "question": "How high was the amount of account 1180 in 2015?",
+    "sql": "SELECT amount FROM account_balances WHERE year = 2015 AND account_id = '1180' AND sub_num = 0;",
+    "answer": 10073562.00
+  },
+  {
+    "question": "What was the balance for the Merchandise account in 2016?",
+    "sql": "SELECT amount FROM account_balances WHERE year = 2016 AND account_id = '1340' AND sub_num = 0;",
+    "answer": 0.00
+  },
+  {
+    "question": "How much the balance for account 1535 in 2017?",
+    "sql": "SELECT amount FROM account_balances WHERE year = 2017 AND account_id = '1535' AND sub_num = 0;",
+    "answer": 2789257.00
+  },
+  {
+    "question": "What was the retail settlement variance account capturing differences between billed and actual settlement amounts for global adjustment in 2018?",
+    "sql": "SELECT amount FROM account_balances WHERE year = 2018 AND account_id = '1589' AND sub_num = 0;",
+    "answer": -10113125.00
+  },
+  {
+    "question": "How high was the balance for RSVA - Global Adjustment in 2019?",
+    "sql": "SELECT amount FROM account_balances WHERE year = 2019 AND account_id = '1635' AND sub_num = 0;",
+    "answer": 0.00
+  },
+  {
+    "question": "What were the balance of account 1665 in 2020?",
+    "sql": "SELECT amount FROM account_balances WHERE year = 2020 AND account_id = '1665' AND sub_num = 0;",
+    "answer": 0.00
+  },
+  {
+    "question": "How much was the cost of utility plant and equipment used in operations for accessory electric equipment in 2021?",
+    "sql": "SELECT amount FROM account_balances WHERE year = 2021 AND account_id = '1680' AND sub_num = 0;",
+    "answer": 0.00
+  },
+  {
+    "question": "What were the costs for Overhead Conductors and Devices in 2022?",
+    "sql": "SELECT amount FROM account_balances WHERE year = 2022 AND account_id = '1730' AND sub_num = 0;",
+    "answer": 0.00
+  },
+  {
+    "question": "What was the balance on account 1855 in 2023?",
+    "sql": "SELECT amount FROM account_balances WHERE year = 2023 AND account_id = '1855' AND sub_num = 0;",
+    "answer": 412479189.00
+  },
+  {
+    "question": "What was the income or expense related to renting property or equipment for sentinel lighting rental units in 2024?",
+    "sql": "SELECT amount FROM account_balances WHERE year = 2024 AND account_id = '1985' AND sub_num = 0;",
+    "answer": 0.00
   }
 ]

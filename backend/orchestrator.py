@@ -690,6 +690,9 @@ class PipelineOrchestrator:
             "maintenance of underground conduit": 5145,
             "maintenance of underground conductors and devices": 5150,
             "maintenance of line transformers": 5160,
+            "differences between billed and actual settlement amounts for global adjustment": 1589,
+            "rsva - global adjustment": 1635,
+            "overhead conductors and devices": 1730
         }
         matched: list[int] = []
         for phrase, acc_id in mappings.items():
