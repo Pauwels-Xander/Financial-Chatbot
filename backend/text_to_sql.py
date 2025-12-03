@@ -53,14 +53,33 @@ class TableSchema:
     columns: Sequence[str]
 
 
-def schema_to_prompt_string(tables: Sequence[TableSchema]) -> str:
+def schema_to_prompt_string(tables: Sequence[TableSchema], include_hints: bool = True) -> str:
     """
-    Convert a collection of table schemas to a compact prompt string.
+    Convert a collection of table schemas to a compact prompt string with optional hints.
 
     Example: accounts(account_id, name) | balances(id, amount)
+    With hints: accounts(account_id INTEGER PRIMARY KEY, account_name VARCHAR) | account_balances(year INTEGER, account_id INTEGER FK->accounts.account_id, amount DECIMAL)
     """
     ordered_tables = sorted(tables, key=lambda table: table.name.lower())
-    return " | ".join(f"{table.name}({', '.join(table.columns)})" for table in ordered_tables)
+    if include_hints:
+        # Add relationship hints for common foreign key patterns
+        table_names = {t.name.lower() for t in tables}
+        hints = []
+        for table in ordered_tables:
+            table_lower = table.name.lower()
+            cols = list(table.columns)
+            # Add FK hints for account_id -> accounts relationship
+            if "account_id" in cols and "accounts" in table_names and table_lower != "accounts":
+                cols_str = ", ".join(
+                    f"{col} INTEGER FK->accounts.account_id" if col == "account_id" else col
+                    for col in cols
+                )
+            else:
+                cols_str = ", ".join(cols)
+            hints.append(f"{table.name}({cols_str})")
+        return " | ".join(hints)
+    else:
+        return " | ".join(f"{table.name}({', '.join(table.columns)})" for table in ordered_tables)
 
 
 def schema_to_json(tables: Sequence[TableSchema]) -> str:
@@ -162,14 +181,28 @@ class PicardValidator:
         * parses SQL using `sqlglot` (DuckDB dialect)
         * ensures all referenced tables & columns exist in the registered schema
         * rejects wildcard column usage if it references unknown tables
+        * validates subqueries, CTEs, and function calls
+        * enforces stricter rules for JOINs and aggregations
     """
 
-    def __init__(self, tables: Iterable[TableSchema]) -> None:
+    def __init__(
+        self,
+        tables: Iterable[TableSchema],
+        *,
+        allow_subqueries: bool = True,
+        allow_ctes: bool = True,
+        strict_joins: bool = True,
+        validate_functions: bool = True,
+    ) -> None:
         self._tables: Dict[str, set[str]] = {
             schema.name.lower(): {col.lower() for col in schema.columns} for schema in tables
         }
         if not self._tables:
             raise ValueError("PicardValidator requires at least one table schema")
+        self.allow_subqueries = allow_subqueries
+        self.allow_ctes = allow_ctes
+        self.strict_joins = strict_joins
+        self.validate_functions = validate_functions
 
     def validate(self, sql: str) -> str:
         if not sql or not sql.strip():
@@ -180,12 +213,34 @@ class PicardValidator:
         except sqlglot.errors.ParseError as exc:
             raise PicardValidationError(f"SQL parsing failed: {exc}") from exc
 
+        # Check for CTEs if not allowed
+        if not self.allow_ctes:
+            ctes = list(parsed.find_all(exp.CTE))
+            if ctes:
+                raise PicardValidationError("CTEs (WITH clauses) are not allowed in this context")
+
+        # Check for subqueries if not allowed
+        if not self.allow_subqueries:
+            subqueries = list(parsed.find_all(exp.Subquery))
+            if subqueries:
+                raise PicardValidationError("Subqueries are not allowed in this context")
+
         base_tables, alias_map = self._collect_table_context(parsed)
         if not base_tables:
             raise PicardValidationError("Query must reference at least one registered table")
         for table in base_tables:
             if table not in self._tables:
                 raise PicardValidationError(f"Unknown table referenced: '{table}'")
+
+        # Validate JOINs if strict mode enabled
+        if self.strict_joins:
+            joins = list(parsed.find_all(exp.Join))
+            for join in joins:
+                join_table = join.this
+                if isinstance(join_table, exp.Table):
+                    table_name = join_table.name.lower() if hasattr(join_table, 'name') else None
+                    if table_name and table_name not in self._tables:
+                        raise PicardValidationError(f"JOIN references unknown table: '{table_name}'")
 
         referenced_columns = self._collect_columns(parsed)
         for table, columns in referenced_columns.items():
@@ -208,7 +263,49 @@ class PicardValidator:
                         f"Unknown column '{column}' referenced on table '{resolved_table}'"
                     )
 
+        # Validate functions if enabled
+        if self.validate_functions:
+            self._validate_functions(parsed, base_tables, alias_map)
+
         return parsed.sql(dialect="duckdb")
+
+    def _validate_functions(self, parsed: exp.Expression, base_tables: set[str], alias_map: dict[str, str]) -> None:
+        """Validate that function arguments reference valid columns."""
+        # Check aggregate functions (Sum, Count, Max, Min, Avg, etc.)
+        # In sqlglot, aggregate functions are specific classes, not a generic Agg class
+        aggregate_function_classes = (
+            exp.Sum, exp.Count, exp.Max, exp.Min, exp.Avg, exp.Variance, exp.Stddev
+        )
+        
+        for func_class in aggregate_function_classes:
+            for func in parsed.find_all(func_class):
+                # Get the expression inside the aggregate function
+                if not hasattr(func, 'this') or func.this is None:
+                    continue
+                
+                # Find column references in the function argument
+                for col in func.this.find_all(exp.Column):
+                    table = col.table or ""
+                    table_key = table.lower() if table else ""
+                    
+                    if table_key:
+                        resolved_table = alias_map.get(table_key, table_key)
+                    else:
+                        # Unqualified column - resolve from context
+                        if len(base_tables) == 1:
+                            resolved_table = next(iter(base_tables))
+                        else:
+                            # Skip ambiguous columns - they're already validated in main column validation
+                            continue
+                    
+                    # Only validate if we can resolve the table
+                    if resolved_table in self._tables:
+                        col_name = col.name.lower()
+                        # Skip wildcards and already-validated columns
+                        if col_name != "*" and col_name not in self._tables[resolved_table]:
+                            raise PicardValidationError(
+                                f"Function argument references unknown column '{col_name}' on table '{resolved_table}'"
+                            )
 
     @staticmethod
     def _collect_table_context(parsed: exp.Expression) -> tuple[set[str], dict[str, str]]:
@@ -244,10 +341,13 @@ class PicardValidator:
 class TextToSQLGenerator:
     """Wrapper around a seq2seq model to translate NL questions into SQL queries."""
 
-    def __init__(self, model_name: str = HF_MODEL_NAME) -> None:
+    def __init__(self, model_name: str = HF_MODEL_NAME, prompt_version: str = "v2") -> None:
         self.model_name = model_name
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         self.model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
+        self.prompt_version = prompt_version
+        
+        # Enhanced few-shot examples covering more edge cases
         self._few_shot_examples = [
             (
                 "What was the Underground Conduit account balance in 2017?",
@@ -265,28 +365,63 @@ class TextToSQLGenerator:
                 "Top 3 accounts by amount in 2016.",
                 "SELECT a.account_name, ab.account_id, SUM(ab.amount) AS amount FROM account_balances ab JOIN accounts a ON ab.account_id = a.account_id WHERE ab.year = 2016 GROUP BY a.account_name, ab.account_id ORDER BY amount DESC LIMIT 3;",
             ),
+            (
+                "List all account names.",
+                "SELECT DISTINCT account_name FROM accounts ORDER BY account_name;",
+            ),
+            (
+                "What is the total amount for each year?",
+                "SELECT year, SUM(amount) AS total_amount FROM account_balances GROUP BY year ORDER BY year;",
+            ),
+            (
+                "Find accounts with balance greater than 1000000 in 2020.",
+                "SELECT a.account_name, ab.account_id, SUM(ab.amount) AS amount FROM account_balances ab JOIN accounts a ON ab.account_id = a.account_id WHERE ab.year = 2020 GROUP BY a.account_name, ab.account_id HAVING SUM(ab.amount) > 1000000 ORDER BY amount DESC;",
+            ),
         ]
 
-    def _build_prompt(self, question: str, tables: Sequence[TableSchema]) -> str:
-        schema_block = schema_to_prompt_string(tables)
-        guidelines = (
-            "Use WHERE clauses for time filters and account filters; "
-            "when an account_id number is given, filter on account_id; "
-            "when asked for 'top N', ORDER BY the metric DESC and LIMIT N."
-        )
-        examples = " ".join(f"Question: {q} | SQL: {a}" for q, a in self._few_shot_examples)
-        return f"{examples} {guidelines} Question: {question} | Schema: {schema_block} | SQL:"
+    def _build_prompt(self, question: str, tables: Sequence[TableSchema], simplified: bool = False) -> str:
+        """
+        Build prompt with schema hints and few-shot examples.
+        
+        Args:
+            question: Natural language question
+            tables: Schema tables
+            simplified: If True, use minimal prompt without examples (for retries)
+        """
+        if simplified:
+            # Simplified prompt for retry attempts
+            schema_block = schema_to_prompt_string(tables, include_hints=False)
+            guidelines = (
+                "Generate SQL using only the provided schema. "
+                "Use WHERE for filters, GROUP BY for aggregations, JOIN to link tables. "
+                "Only reference tables and columns that exist in the schema."
+            )
+            return f"{guidelines} Question: {question} | Schema: {schema_block} | SQL:"
+        else:
+            # Full prompt with examples and hints
+            schema_block = schema_to_prompt_string(tables, include_hints=True)
+            guidelines = (
+                "Rules: Use WHERE clauses for time filters (year) and account filters (account_id); "
+                "when an account_id number is given, filter on account_id; "
+                "when asked for 'top N', ORDER BY the metric DESC and LIMIT N; "
+                "use JOIN to link account_balances with accounts when you need account names; "
+                "use SUM() for totals, GROUP BY for aggregations; "
+                "only use tables and columns from the schema above."
+            )
+            examples = " ".join(f"Question: {q} | SQL: {a}" for q, a in self._few_shot_examples)
+            return f"{examples} {guidelines} Question: {question} | Schema: {schema_block} | SQL:"
 
     def generate_sql(
         self,
         question: str,
         schema: Sequence[TableSchema],
         *,
-        max_new_tokens: int = 64,
+        max_new_tokens: int = 128,  # Increased for more complex queries
         num_beams: int = 4,
         temperature: Optional[float] = None,
+        simplified: bool = False,
     ) -> str:
-        prompt = self._build_prompt(question, schema)
+        prompt = self._build_prompt(question, schema, simplified=simplified)
         encoded = self.tokenizer(prompt, return_tensors="pt")
         generated = self.model.generate(
             **encoded,
@@ -304,13 +439,34 @@ class TextToSQLGenerator:
         question: str,
         schema: Sequence[TableSchema],
         validator: PicardValidator,
+        *,
+        simplified: bool = False,
         **generation_kwargs,
     ) -> str:
-        candidate = self.generate_sql(question, schema, **generation_kwargs)
+        """
+        Generate SQL with PICARD validation, optionally using simplified prompt for retries.
+        
+        Args:
+            question: Natural language question
+            schema: Table schemas
+            validator: PICARD validator instance
+            simplified: If True, use simplified prompt without few-shot examples
+            **generation_kwargs: Additional generation parameters
+        """
+        candidate = self.generate_sql(question, schema, simplified=simplified, **generation_kwargs)
         try:
             validator.validate(candidate)
             return candidate
         except PicardValidationError:
+            # Try with simplified prompt if not already using it
+            if not simplified:
+                try:
+                    simplified_candidate = self.generate_sql(question, schema, simplified=True, **generation_kwargs)
+                    validator.validate(simplified_candidate)
+                    return simplified_candidate
+                except PicardValidationError:
+                    pass
+            # Final fallback to pattern-based SQL
             fallback = self._fallback_sql(question, schema)
             validator.validate(fallback)
             return fallback
