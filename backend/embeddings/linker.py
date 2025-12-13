@@ -13,6 +13,11 @@ from pathlib import Path
 import numpy as np
 import sys
 from sentence_transformers import SentenceTransformer
+from sklearn.feature_extraction.text import TfidfVectorizer
+try:
+    from rank_bm25 import BM25Okapi
+except ImportError:  # pragma: no cover - optional dependency
+    BM25Okapi = None  # type: ignore
 
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent  # project root
 if str(ROOT_DIR) not in sys.path:
@@ -64,6 +69,14 @@ class AccountLinker:
         
         # Build reverse lookup: canonical_name -> list of variants
         self._canonical_to_variants = self._build_reverse_lookup()
+
+        # Placeholders for lexical indices (TF-IDF / BM25)
+        self._tfidf_vectorizer: Optional[TfidfVectorizer] = None
+        self._tfidf_matrix = None  # scipy sparse matrix
+        self._bm25_model = None
+        self._bm25_corpus: Optional[List[List[str]]] = None
+        self._lexical_accounts: List[int] = []
+        self._lexical_account_names: List[str] = []
     
     def _load_account_lexicon(self, lexicon_path: str) -> Dict[str, str]:
         """
@@ -285,44 +298,60 @@ class AccountLinker:
         
         # Stage 2: Lexical matches (synonym/lexicon)
         lexical_matches = self._find_synonym_matches(query_text)
-        
+
+        # Stage 2b: TF-IDF lexical retrieval
+        tfidf_matches = self._search_tfidf(query_text, top_k=top_k)
+
+        # Stage 2c: BM25 lexical retrieval
+        bm25_matches = self._search_bm25(query_text, top_k=top_k)
+
+        # Merge lexical-style matches, keeping highest confidence per account
+        merged_lexical: List[Dict[str, Any]] = []
+        seen_lex: Dict[int, Dict[str, Any]] = {}
+        for match in lexical_matches + tfidf_matches + bm25_matches:
+            acc_num = match["account_number"]
+            prev = seen_lex.get(acc_num)
+            if prev is None or match["confidence"] > prev["confidence"]:
+                seen_lex[acc_num] = match
+        merged_lexical = list(seen_lex.values())
+
         # Stage 3: Semantic matches (embeddings)
         query_embedding = self.generate_embeddings([query_text])[0]
         semantic_results = self.vector_db.search(query_embedding, k=top_k * 2)  # Get more for deduplication
-        
+
         # Convert semantic results to dict format
-        semantic_matches = []
+        semantic_matches: List[Dict[str, Any]] = []
         seen_accounts = set()
-        
-        # Add lexical matches first (they have higher confidence)
-        for match in lexical_matches:
-            acc_num = match['account_number']
+
+        # Add lexical-style matches first (they typically have higher confidence)
+        for match in merged_lexical:
+            acc_num = match["account_number"]
             if acc_num not in seen_accounts:
                 semantic_matches.append(match)
                 seen_accounts.add(acc_num)
-        
+
         # Add semantic matches (avoid duplicates)
         for acc_id, distance, metadata in semantic_results:
-            if metadata and metadata.get('account_id'):
-                acc_num = metadata['account_id']
+            if metadata and metadata.get("account_id"):
+                acc_num = metadata["account_id"]
                 if acc_num not in seen_accounts:
                     confidence = self._distance_to_confidence(distance)
                     semantic_matches.append({
-                        'account_number': acc_num,
-                        'confidence': confidence,
-                        'match_type': 'semantic',
-                        'account_name': metadata.get('text', '')
+                        "account_number": acc_num,
+                        "confidence": confidence,
+                        "match_type": "semantic",
+                        "account_name": metadata.get("text", "")
                     })
                     seen_accounts.add(acc_num)
-        
+
         # Sort by confidence (descending)
-        semantic_matches.sort(key=lambda x: x['confidence'], reverse=True)
-        
+        semantic_matches.sort(key=lambda x: x["confidence"], reverse=True)
+
         # Apply top_k and threshold
         results = semantic_matches[:top_k]
         if threshold is not None:
-            results = [r for r in results if r['confidence'] >= threshold]
-        
+            results = [r for r in results if r["confidence"] >= threshold]
+
         return results
     
     def initialize_from_db(
@@ -377,6 +406,9 @@ class AccountLinker:
             raise ValueError(f"No accounts found in DuckDB at {duckdb_path}")
         
         print(f"Found {len(accounts)} accounts in DuckDB")
+
+        # Build lexical indices (TF-IDF / BM25) from accounts
+        self._build_lexical_index(accounts)
         
         # Prepare items to index
         items_to_index = []
@@ -432,6 +464,137 @@ class AccountLinker:
         print(f"✅ Vector database now contains {total_count} items.")
         
         return total_count
+
+    def _build_lexical_index(
+        self,
+        accounts: List[Tuple[int, str, Optional[str]]],
+    ) -> None:
+        """Build TF-IDF and BM25 indices from account names/descriptions."""
+        if not accounts:
+            self._tfidf_vectorizer = None
+            self._tfidf_matrix = None
+            self._bm25_model = None
+            self._bm25_corpus = None
+            self._lexical_accounts = []
+            self._lexical_account_names = []
+            return
+
+        texts: List[str] = []
+        account_ids: List[int] = []
+        account_names: List[str] = []
+
+        for account_id, account_name, account_description in accounts:
+            parts: List[str] = []
+            if account_name:
+                parts.append(str(account_name))
+            if account_description:
+                desc = str(account_description).strip()
+                if desc:
+                    parts.append(desc)
+            full_text = " ".join(parts).strip()
+            if not full_text:
+                continue
+            texts.append(full_text)
+            account_ids.append(int(account_id))
+            account_names.append(str(account_name))
+
+        if not texts:
+            return
+
+        # Store mapping for later
+        self._lexical_accounts = account_ids
+        self._lexical_account_names = account_names
+
+        # TF-IDF index
+        self._tfidf_vectorizer = TfidfVectorizer(stop_words="english")
+        self._tfidf_matrix = self._tfidf_vectorizer.fit_transform(texts)
+
+        # BM25 index (optional dependency)
+        if BM25Okapi is not None:
+            tokenized_corpus = [t.lower().split() for t in texts]
+            self._bm25_corpus = tokenized_corpus
+            self._bm25_model = BM25Okapi(tokenized_corpus)
+        else:
+            self._bm25_corpus = None
+            self._bm25_model = None
+
+    def _search_tfidf(
+        self,
+        query_text: str,
+        top_k: int = 5,
+    ) -> List[Dict[str, Any]]:
+        """TF-IDF cosine-style retrieval over account texts."""
+        if (
+            not query_text
+            or self._tfidf_vectorizer is None
+            or self._tfidf_matrix is None
+            or not self._lexical_accounts
+        ):
+            return []
+
+        q_vec = self._tfidf_vectorizer.transform([query_text])
+        scores = (self._tfidf_matrix @ q_vec.T).toarray().ravel()
+        if scores.size == 0 or scores.max() <= 0:
+            return []
+
+        top_indices = np.argsort(scores)[::-1][:top_k]
+        max_score = float(scores[top_indices[0]])
+        results: List[Dict[str, Any]] = []
+
+        for idx in top_indices:
+            score = float(scores[idx])
+            if score <= 0:
+                continue
+            confidence = score / max_score if max_score > 0 else 0.0
+            results.append(
+                {
+                    "account_number": self._lexical_accounts[idx],
+                    "confidence": confidence,
+                    "match_type": "tfidf",
+                    "account_name": self._lexical_account_names[idx],
+                }
+            )
+
+        return results
+
+    def _search_bm25(
+        self,
+        query_text: str,
+        top_k: int = 5,
+    ) -> List[Dict[str, Any]]:
+        """BM25 retrieval over account texts (if rank_bm25 is installed)."""
+        if (
+            not query_text
+            or self._bm25_model is None
+            or not self._bm25_corpus
+            or not self._lexical_accounts
+        ):
+            return []
+
+        tokens = query_text.lower().split()
+        scores = np.array(self._bm25_model.get_scores(tokens))
+        if scores.size == 0 or scores.max() <= 0:
+            return []
+
+        top_indices = np.argsort(scores)[::-1][:top_k]
+        max_score = float(scores[top_indices[0]])
+        results: List[Dict[str, Any]] = []
+
+        for idx in top_indices:
+            score = float(scores[idx])
+            if score <= 0:
+                continue
+            confidence = score / max_score if max_score > 0 else 0.0
+            results.append(
+                {
+                    "account_number": self._lexical_accounts[idx],
+                    "confidence": confidence,
+                    "match_type": "bm25",
+                    "account_name": self._lexical_account_names[idx],
+                }
+            )
+
+        return results
     
     def get_all_account_ids(self) -> List[int]:
         """Get all account IDs stored in the vector database."""
